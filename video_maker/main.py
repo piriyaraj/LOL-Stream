@@ -3,7 +3,7 @@ from entities.match_data import MatchData
 from entities.data_scrapper import DataScrapper
 from usecases.scrap_lol_data import ScrapLolData
 from usecases.create_thumbnail import CreateThumbnail
-from usecases.record_video import RecordVideo
+from usecases.record_video import ControlGamePlay
 from usecases.upload_youtube import UploadYoutube
 import os
 
@@ -25,9 +25,9 @@ try:
     result = thumb_creator.create_thumbnail()
     if(not result):
         raise Exception("Server issue")
-    # video_recorder = RecordVideo(lol_data)
-    # video_file_name = video_recorder.record()
-    # video_file_name = video_recorder.select_video_file()
+    gameController = ControlGamePlay(lol_data)
+    video_file_name = gameController.record()
+    video_file_name = gameController.select_video_file()
 
     # youtube_uploader = UploadYoutube(lol_data, video_file_name)
     # youtube_uploader.upload_video()
