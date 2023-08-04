@@ -58,7 +58,7 @@ def get_command(playerName):
             print(f"Error: {e}")
 
         
-def Run(ChampionName):
+def get_commands(ChampionName):
     player_url = f"https://lolpros.gg/player/{ChampionName}"
     print(player_url)
     logger.info("Monitoring player: {}".format(player_url))
@@ -74,5 +74,4 @@ def Run(ChampionName):
     command = get_command(playerName)
     print("command:",command)
     driver.quit()
-    
-Run("wenbo")
+    return command
