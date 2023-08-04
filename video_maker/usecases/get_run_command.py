@@ -39,13 +39,14 @@ def scrape_lolpros_player(playerLink,playrName):
         team_red = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[4]/a")
         for i in range(len(team_red)):
             player_name = team_red[i].text
+            print(player_name)
             if playrName.lower() in player_name.lower():
                 playerTeam = "Red"
                 playerIndex = int(i)
                 return playerTeam, playerIndex
         
         # get red team
-        team_blue = driver.find_elements(By.XPATH, "//*[@id='current-game']/div[1]/div/div[3]/div/div[2]/div/div[1]")
+        team_blue = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[1]/tbody/tr/td[4]/a")
         for i in range(len(team_blue)):
             player_name = team_blue[i].text
             print(player_name)
@@ -66,9 +67,9 @@ def get_commands(playerLink,playrName):
 
     playerTeam, playerIndex = scrape_lolpros_player(playerLink,playrName)
     
-    # if playerTeam:
-    #     print("Player Team:",playerTeam)
-    #     print("Player Index:",playerIndex)
+    if playerTeam:
+        print("Player Team:",playerTeam)
+        print("Player Index:",playerIndex)
     # else:
     #     print("Scraping failed.")
 

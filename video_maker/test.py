@@ -17,8 +17,8 @@ def run_in_new_terminal(command):
             file.write(cmd.strip() + "\n")
     # subprocess.Popen(['start', 'cmd', '/c', batch_script_path], shell=True)
 
-playerLink = "https://www.op.gg/summoners/kr/viper3/ingame"
-playrName = "viper3"
+playerLink = "https://www.op.gg/summoners/kr/ToongE/ingame"
+playrName = "ToongE"
 
 try:
     playerTeam, playerIndex = get_commands(playerLink,playrName)
