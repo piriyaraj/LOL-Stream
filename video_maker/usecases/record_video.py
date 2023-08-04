@@ -14,12 +14,14 @@ class ControlGamePlay:
         self.__player_index = playerIndex
 
     def record(self):
+        print("start run game")
         self.__run_game()
         
         for i in range(45):
             sleep(1)
             # print_progress(i, self.total, prefix='Gameplay recording:')
 
+        print("click center of the screen")
         # Get the size of the screen
         screen_width, screen_height = pydirectinput.size()
 
@@ -42,6 +44,7 @@ class ControlGamePlay:
         sleep(5)
         # print_progress(56, self.total, prefix='Gameplay recording:')
         # select champion
+        print("Selecting player")
         self.__select_player()
         
         sleep(2)
@@ -99,6 +102,8 @@ class ControlGamePlay:
         pyautogui.hotkey('super', '1')
 
     def __select_player(self):
+        print("selected Team:",self.__player_team)
+        print("selected Index:",self.__player_index)
         if self.__player_team == 'Blue':
             pydirectinput.keyDown('f1')
             pydirectinput.keyUp('f1')

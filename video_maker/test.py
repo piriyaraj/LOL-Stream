@@ -21,10 +21,12 @@ playerLink = "https://www.op.gg/summoners/kr/woxiangdazhiye/ingame"
 playrName = "woxiangdazhiye"
 
 try:
-    playerTeam, playerIndex = get_commands(playerLink,playrName)
+    # playerTeam, playerIndex = get_commands(playerLink,playrName)
    
-    print("Player Team:",playerTeam)
-    print("Player Index:",playerIndex)
+    # print("Player Team:",playerTeam)
+    # print("Player Index:",playerIndex)
+    playerTeam = "Red"
+    playerIndex = 1
     # command = """ cd /d "C:\Riot Games\League of Legends\Game" & "League of Legends.exe" "spectator spectator-consumer.euw1.lol.pvp.net:80 YQHBRhh4BwsDqaJyYm6ulqnT1NkkKki8 6534915822 EUW1" "-UseRads" """
     # run_in_new_terminal(command)
     gameController = ControlGamePlay(playerTeam,playerIndex)
