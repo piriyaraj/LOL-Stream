@@ -17,10 +17,10 @@ def run_in_new_terminal(command):
             file.write(cmd.strip() + "\n")
     # subprocess.Popen(['start', 'cmd', '/c', batch_script_path], shell=True)
 
-
+playerName, playerIndex = get_commands("Brohax")
 
 try:
-    playerName, playerIndex = get_commands("Brohax")
+   
     print(playerName, playerIndex)
     # command = """ cd /d "C:\Riot Games\League of Legends\Game" & "League of Legends.exe" "spectator spectator-consumer.euw1.lol.pvp.net:80 YQHBRhh4BwsDqaJyYm6ulqnT1NkkKki8 6534915822 EUW1" "-UseRads" """
     # run_in_new_terminal(command)
@@ -28,4 +28,4 @@ try:
     # video_file_name = gameController.record()
     # video_file_name = gameController.select_video_file()
 except Exception as e:
-    print("Error: %s" % e)
+    print("Error(test): %s" % e)

@@ -21,9 +21,11 @@ def build_runner(command):
         for cmd in cmds:
             file.write(cmd.strip() + "\n")  
 
-def scrape_lolpros_player(player_url,ChampionName):
+def scrape_lolpros_player(ChampionName):
     playerTeam = ""
     playerIndex = ""
+    player_url = f"https://www.op.gg/summoners/euw/{ChampionName}/ingame"
+    print(player_url)
     try:        
         driver.get(player_url)
         adsTag = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='__next']/div[6]")))
@@ -51,8 +53,8 @@ def scrape_lolpros_player(player_url,ChampionName):
             if ChampionName.lower() in player_name.lower():
                 return playerTeam, playerIndex
     except Exception as e:
-        print(f"Error: {e}")
-        return None,None
+        print(f"Error(scrape_lolpros_player): {e}")
+        return "None","None"
     # finally:
     #     driver.quit()
 
@@ -73,17 +75,14 @@ def get_command(playerName):
 def get_commands(ChampionName):
     global driver
     driver = scrapper().driver
-    player_url = f"https://www.op.gg/summoners/euw/{ChampionName}/ingame"
-    print(player_url)
-    logger.info("Monitoring player: {}".format(player_url))
+    
 
-    playerTeam, playerIndex = scrape_lolpros_player(player_url,ChampionName)
+    playerTeam, playerIndex = scrape_lolpros_player(ChampionName)
     
     if playerTeam:
         print("Player Name:",playerTeam)
     else:
         print("Scraping failed.")
-        return
 
     driver.quit()
 
