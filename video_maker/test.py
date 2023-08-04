@@ -17,11 +17,14 @@ def run_in_new_terminal(command):
             file.write(cmd.strip() + "\n")
     # subprocess.Popen(['start', 'cmd', '/c', batch_script_path], shell=True)
 
-playerName, playerIndex = get_commands("Brohax")
+playerLink = "https://www.op.gg/summoners/kr/viper3/ingame"
+playrName = "viper3"
 
 try:
+    playerTeam, playerIndex = get_commands(playerLink,playrName)
    
-    print(playerName, playerIndex)
+    print("Player Team:",playerTeam)
+    print("Player Index:",playerIndex)
     # command = """ cd /d "C:\Riot Games\League of Legends\Game" & "League of Legends.exe" "spectator spectator-consumer.euw1.lol.pvp.net:80 YQHBRhh4BwsDqaJyYm6ulqnT1NkkKki8 6534915822 EUW1" "-UseRads" """
     # run_in_new_terminal(command)
     # gameController = ControlGamePlay("Blue",1)

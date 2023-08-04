@@ -7,7 +7,7 @@ import time
 
 class DataScrapper:
     def __init__(self) -> None:
-        self.__download_path = os.path.abspath(r'.\media\replays')
+        self.__download_path = os.path.abspath(r'.\media\gameplay')
         # SELENIUM
         self.__options = Options()
         # self.__options.headless = True
