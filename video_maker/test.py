@@ -20,11 +20,12 @@ def run_in_new_terminal(command):
 
 
 try:
-    # command = get_commands("caps")
+    playerName, playerIndex = get_commands("Brohax")
+    print(playerName, playerIndex)
     # command = """ cd /d "C:\Riot Games\League of Legends\Game" & "League of Legends.exe" "spectator spectator-consumer.euw1.lol.pvp.net:80 YQHBRhh4BwsDqaJyYm6ulqnT1NkkKki8 6534915822 EUW1" "-UseRads" """
     # run_in_new_terminal(command)
-    gameController = ControlGamePlay("Blue",1)
-    video_file_name = gameController.record()
-    video_file_name = gameController.select_video_file()
+    # gameController = ControlGamePlay("Blue",1)
+    # video_file_name = gameController.record()
+    # video_file_name = gameController.select_video_file()
 except Exception as e:
     print("Error: %s" % e)

@@ -22,38 +22,37 @@ def build_runner(command):
             file.write(cmd.strip() + "\n")  
 
 def scrape_lolpros_player(player_url,ChampionName):
+    playerTeam = ""
+    playerIndex = ""
     try:        
         driver.get(player_url)
-        live_tab = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='app']/main/div/div/div[2]/div/ul/li[2]/a")))
-        live_tab.click()
+        adsTag = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='__next']/div[6]")))
+        # live_tab.click()
         while True:
             try:
-                is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='current-game']/div[1]/div/div[1]")))
+                is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='content-container']/div/div/div[2]/div/button[2]")))
                 break
             except:
                 print("Gameplay not found")
-                refreshButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='current-game']/div/button")))
-                refreshButton.click()
-                time.sleep(1)
+                driver.refresh()
+                time.sleep(5)
         
         # get blue team
-        team_red = driver.find_elements(By.XPATH, "//*[@id='current-game']/div[1]/div/div[2]/div/div[2]/div/div[1]")
-        player_name_tags = driver.find_elements(By.XPATH, "//*[@id='current-game']/div[1]/div/div[2]/div/div[2]/div/div[2]")
+        team_red = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[4]/a")
         for i in range(len(team_red)):
             player_name = team_red[i].text
-            if ChampionName in player_name.lower():
-                return player_name_tags[i].text
+            if ChampionName.lower() in player_name.lower():
+                return playerTeam, playerIndex
         
         # get red team
         team_blue = driver.find_elements(By.XPATH, "//*[@id='current-game']/div[1]/div/div[3]/div/div[2]/div/div[1]")
-        player_name_tags = driver.find_elements(By.XPATH, "//*[@id='current-game']/div[1]/div/div[3]/div/div[2]/div/div[2]")
         for i in range(len(team_blue)):
             player_name = team_blue[i].text
-            if ChampionName in player_name.lower():
-                return player_name_tags[i].text
+            if ChampionName.lower() in player_name.lower():
+                return playerTeam, playerIndex
     except Exception as e:
         print(f"Error: {e}")
-        return None
+        return None,None
     # finally:
     #     driver.quit()
 
@@ -74,23 +73,18 @@ def get_command(playerName):
 def get_commands(ChampionName):
     global driver
     driver = scrapper().driver
-    player_url = f"https://lolpros.gg/player/{ChampionName}"
+    player_url = f"https://www.op.gg/summoners/euw/{ChampionName}/ingame"
     print(player_url)
     logger.info("Monitoring player: {}".format(player_url))
 
-    playerName = scrape_lolpros_player(player_url,ChampionName)
+    playerTeam, playerIndex = scrape_lolpros_player(player_url,ChampionName)
     
-    if playerName:
-        print("Player Name:",playerName)
+    if playerTeam:
+        print("Player Name:",playerTeam)
     else:
         print("Scraping failed.")
         return
 
-    command = get_command(playerName)
-    print("command:",command)
     driver.quit()
 
-    if gamePath:
-       command = command.replace("C:\Riot Games\League of Legends\Game",gamePath)
-    build_runner(command)
-    return command
+    return playerTeam, playerIndex
