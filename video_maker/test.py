@@ -17,8 +17,8 @@ def run_in_new_terminal(command):
             file.write(cmd.strip() + "\n")
     # subprocess.Popen(['start', 'cmd', '/c', batch_script_path], shell=True)
 
-playerLink = "https://www.op.gg/summoners/kr/ToongE/ingame"
-playrName = "ToongE"
+playerLink = "https://www.op.gg/summoners/kr/woxiangdazhiye/ingame"
+playrName = "woxiangdazhiye"
 
 try:
     playerTeam, playerIndex = get_commands(playerLink,playrName)
@@ -27,8 +27,8 @@ try:
     print("Player Index:",playerIndex)
     # command = """ cd /d "C:\Riot Games\League of Legends\Game" & "League of Legends.exe" "spectator spectator-consumer.euw1.lol.pvp.net:80 YQHBRhh4BwsDqaJyYm6ulqnT1NkkKki8 6534915822 EUW1" "-UseRads" """
     # run_in_new_terminal(command)
-    # gameController = ControlGamePlay("Blue",1)
-    # video_file_name = gameController.record()
+    gameController = ControlGamePlay(playerTeam,playerIndex)
+    video_file_name = gameController.record()
     # video_file_name = gameController.select_video_file()
 except Exception as e:
     print("Error(test): %s" % e)
