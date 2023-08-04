@@ -1,12 +1,8 @@
 # import package
 import time
-import requests
-from bs4 import BeautifulSoup
 from entities.data_scrapper import DataScrapper as scrapper
 from entities.logger import logging as logger
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # get the player name and get the live player name
