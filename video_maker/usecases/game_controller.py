@@ -1,11 +1,11 @@
 import os
 from time import sleep
 import subprocess
+import time
 import pyautogui
 import pydirectinput
-from entities.match_data import MatchData
-from entities.progress import print_progress
-
+from PIL import ImageGrab
+from PIL import Image
 
 class ControlGamePlay:
     def __init__(self,playerTeam,playerIndex) -> None:
@@ -13,7 +13,7 @@ class ControlGamePlay:
         self.__player_team = playerTeam
         self.__player_index = str(playerIndex)
 
-    def record(self):
+    def control(self):
         print("start run game")
         self.__run_game()
         
@@ -41,7 +41,7 @@ class ControlGamePlay:
         # print_progress(51, self.total, prefix='Gameplay recording:')
         pydirectinput.keyDown('u')
         pydirectinput.keyUp('u')
-        sleep(50)
+        sleep(5)
         # print_progress(56, self.total, prefix='Gameplay recording:')
         # select champion
         print("Selecting player")
@@ -93,7 +93,24 @@ class ControlGamePlay:
     
         # print('Recorded match')
         return True
-
+    
+    def close_game(self):
+        print('Wait for closing game')
+    # Load the target image
+        target_image = Image.open(os.path.abspath("assets/img/closeButton.png"))
+        
+        while True:
+            screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
+            result = pyautogui.locateOnScreen(target_image, confidence=0.64)  # Find the target image on the screenshot
+            
+            if result is not None:
+                button_position = pyautogui.center(result)  # Get the center of the found image
+                pyautogui.click(button_position)  # Click the button
+                print("Close button clicked!")
+                return True  # Return True after clicking
+            else:
+                time.sleep(1)  # Wait for a second before checking again
+    
     def __run_game(self):
         file = os.listdir(self.__replay_file_dir)[0]
         subprocess.run(["start", "cmd", "/c", f"{self.__replay_file_dir}\{file}"], shell=True)

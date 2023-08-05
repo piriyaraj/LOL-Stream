@@ -2,7 +2,6 @@
 import os
 import time
 from entities.data_scrapper import DataScrapper as scrapper
-from entities.logger import logging as logger
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,13 +18,10 @@ def scrape_lolpros_player(playerLink,playrName):
     player_url = f"{playerLink}"
     # print(player_url)
     
-    try:        
+    try:       
+        print("test1") 
         driver.get(player_url)
-        with open("html.html", "w", encoding="utf-8") as file:
-            file.write(driver.page_source)
-        # adsTag = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='__next']/div[6]")))
-        # live_tab.click()
-        
+        print("test2") 
         while True:
             try:
                 is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='content-container']/div/div/div[2]/div/button[2]")))
