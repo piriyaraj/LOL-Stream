@@ -16,10 +16,8 @@ class ControlGamePlay:
     def control(self):
         print("start run game")
         self.__run_game()
-        
-        for i in range(45):
-            sleep(1)
 
+        self.__start_game()
         print("click center of the screen")
         # Get the size of the screen
         screen_width, screen_height = pydirectinput.size()
@@ -67,12 +65,28 @@ class ControlGamePlay:
         # Move mouse pointer down 5 times
         pyautogui.scroll(-700)
         
-        self.close_game()
+        self.__close_game()
         sleep(5)
         return True
 
+    def __start_game(self):
+        print('Wait for start game')
+    # Load the target image
+        target_image = Image.open(os.path.abspath("assets/img/startButton.png"))
+        
+        while True:
+            screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
+            result = pyautogui.locateOnScreen(target_image, confidence=0.64)  # Find the target image on the screenshot
+            
+            if result is not None:
+                button_position = pyautogui.center(result)  # Get the center of the found image
+                print("game starting !")
+                return True  # Return True after clicking
+            else:
+                time.sleep(1)  # Wait for a second before checking again
     
-    def close_game(self):
+    
+    def __close_game(self):
         print('Wait for closing game')
     # Load the target image
         target_image = Image.open(os.path.abspath("assets/img/closeButton.png"))
@@ -92,9 +106,6 @@ class ControlGamePlay:
     def __run_game(self):
         file = os.listdir(self.__replay_file_dir)[0]
         subprocess.run(["start", "cmd", "/c", f"{self.__replay_file_dir}\{file}"], shell=True)
-
-    def __run_obs(self):
-        pyautogui.hotkey('super', '1')
 
     def __select_player(self):
         print("selected Team:",self.__player_team)
@@ -120,31 +131,3 @@ class ControlGamePlay:
                 keys[int(self.__player_index) - 1])
             pydirectinput.keyUp(
                 keys[int(self.__player_index) - 1])
-
-    def __start_stop_recording(self):
-        pyautogui.keyDown('shiftleft')
-        pyautogui.keyDown('x')
-        pyautogui.keyUp('shiftleft')
-        pyautogui.keyUp('x')
-
-    def __duration_in_seconds(self) -> int:
-        array = self.__match_data['duration'].split(':')
-        return (int(array[0]) * 60) + int(array[1]) - 15
-
-    def __show_mouse_position(self):
-        while True:
-            print(pyautogui.position())
-            sleep(1)
-
-    def select_video_file(self):
-        files = os.listdir(self.__video_file_dir)
-        # print(files)
-        
-        file_path = os.path.abspath(os.path.join(self.__video_file_dir, files[0]))
-        return file_path
-
-    def remove_video_file(self):
-        file = os.listdir(self.__video_file_dir)
-        for i in range(len(file)):
-            os.rename(os.path.join(self.__video_file_dir, file[i]), os.path.join(
-                os.path.dirname(self.__video_file_dir), 'uploaded', file[i]))
