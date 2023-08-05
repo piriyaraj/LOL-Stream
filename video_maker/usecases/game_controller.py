@@ -17,7 +17,8 @@ class ControlGamePlay:
         print("start run game")
         self.__run_game()
 
-        self.__start_game()
+        # self.__start_game()
+        time.sleep(45)
         print("click center of the screen")
         # Get the size of the screen
         screen_width, screen_height = pydirectinput.size()
@@ -93,7 +94,7 @@ class ControlGamePlay:
         
         while True:
             screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
-            result = pyautogui.locateOnScreen(target_image, confidence=0.7)  # Find the target image on the screenshot
+            result = pyautogui.locateOnScreen(target_image, confidence=0.8)  # Find the target image on the screenshot
             
             if result is not None:
                 button_position = pyautogui.center(result)  # Get the center of the found image

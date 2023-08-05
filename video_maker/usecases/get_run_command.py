@@ -29,7 +29,7 @@ def scrape_lolpros_player(playerLink,playrName):
                 break
             except:
                 print("Gameplay not found")
-                driver.refresh()
+                # driver.refresh()
                 time.sleep(5)
         
         # get blue team
