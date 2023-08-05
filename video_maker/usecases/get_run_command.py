@@ -23,7 +23,7 @@ def scrape_lolpros_player(playerLink,playrName):
         driver.get(player_url)
         with open("html.html", "w", encoding="utf-8") as file:
             file.write(driver.page_source)
-        adsTag = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='__next']/div[6]")))
+        # adsTag = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='__next']/div[6]")))
         # live_tab.click()
         
         while True:
@@ -52,6 +52,7 @@ def scrape_lolpros_player(playerLink,playrName):
                 playerTeam = "Red"
                 playerIndex = int(i)
                 is_gameplay_found.click()
+                time.sleep(10)
                 return playerTeam, playerIndex
         
         # get red team
@@ -62,6 +63,7 @@ def scrape_lolpros_player(playerLink,playrName):
                 playerTeam = "Blue"
                 playerIndex = int(i)
                 is_gameplay_found.click()
+                time.sleep(10)
                 return playerTeam, playerIndex
     except Exception as e:
         print(f"Error(scrape_lolpros_player): {e}")

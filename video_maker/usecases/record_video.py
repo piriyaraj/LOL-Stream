@@ -11,7 +11,7 @@ class ControlGamePlay:
     def __init__(self,playerTeam,playerIndex) -> None:
         self.__replay_file_dir = os.path.abspath(r'.\media\gameplay')
         self.__player_team = playerTeam
-        self.__player_index = playerIndex
+        self.__player_index = str(playerIndex)
 
     def record(self):
         print("start run game")
@@ -41,7 +41,7 @@ class ControlGamePlay:
         # print_progress(51, self.total, prefix='Gameplay recording:')
         pydirectinput.keyDown('u')
         pydirectinput.keyUp('u')
-        sleep(5)
+        sleep(50)
         # print_progress(56, self.total, prefix='Gameplay recording:')
         # select champion
         print("Selecting player")
@@ -54,7 +54,7 @@ class ControlGamePlay:
         sleep(1)
         # print_progress(59, self.total, prefix='Gameplay recording:')
         # zoom out
-
+        print("Zoom out the screen!")
         # Click on the center of the screen
         pydirectinput.click(center_x, center_y)
         # Press and hold Ctrl+Shift+Z
@@ -73,7 +73,7 @@ class ControlGamePlay:
         
         
         # self.__start_stop_recording()
-        for i in range(5):
+        for i in range(100):
             # print_progress(60+i, self.total, prefix='Gameplay recording:')
             sleep(1)
         # self.__start_stop_recording()
@@ -105,12 +105,14 @@ class ControlGamePlay:
         print("selected Team:",self.__player_team)
         print("selected Index:",self.__player_index)
         if self.__player_team == 'Blue':
+            print("Change Blue player")
             pydirectinput.keyDown('f1')
             pydirectinput.keyUp('f1')
             pydirectinput.keyDown(self.__player_index)
             pydirectinput.keyUp(self.__player_index)
             pydirectinput.keyDown(self.__player_index)
             pydirectinput.keyUp(self.__player_index)
+            print("Changed Blue player")
         else:
             keys = ['q', 'w', 'e', 'r', 't']
             pydirectinput.keyDown('f2')
