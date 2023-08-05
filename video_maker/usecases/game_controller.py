@@ -19,7 +19,6 @@ class ControlGamePlay:
         
         for i in range(45):
             sleep(1)
-            # print_progress(i, self.total, prefix='Gameplay recording:')
 
         print("click center of the screen")
         # Get the size of the screen
@@ -34,21 +33,22 @@ class ControlGamePlay:
         pydirectinput.keyDown('n')
         pydirectinput.keyUp('n')
         sleep(1)
-        # print_progress(50, self.total, prefix='Gameplay recording:')
+        
+        # scoreboard 
         pydirectinput.keyDown('o')
         pydirectinput.keyUp('o')
         sleep(1)
         # print_progress(51, self.total, prefix='Gameplay recording:')
         pydirectinput.keyDown('u')
         pydirectinput.keyUp('u')
-        sleep(5)
+        sleep(2)
         # print_progress(56, self.total, prefix='Gameplay recording:')
         # select champion
         print("Selecting player")
         self.__select_player()
         
         sleep(2)
-        # print_progress(58, self.total, prefix='Gameplay recording:')
+        # Extend character stats
         pydirectinput.keyDown('c')
         pydirectinput.keyUp('c')
         sleep(1)
@@ -66,33 +66,11 @@ class ControlGamePlay:
         pydirectinput.keyUp('z')
         # Move mouse pointer down 5 times
         pyautogui.scroll(-700)
-
-        # Release all keys
-
-        # zoom out end
         
-        
-        # self.__start_stop_recording()
-        for i in range(100):
-            # print_progress(60+i, self.total, prefix='Gameplay recording:')
-            sleep(1)
-        # self.__start_stop_recording()
-        sleep(10)
-        # print_progress(60+self.__duration_in_seconds()+10, self.total, prefix='Gameplay recording:')
-        # pydirectinput.click(962, 641)
-        # pyautogui.click(962, 641)
-        pyautogui.hotkey('alt', 'f4')
-        sleep(1)
-        # print_progress(60+self.__duration_in_seconds()+11, self.total, prefix='Gameplay recording:')
-        
-        # pydirectinput.leftClick(962, 641)
-        # pyautogui.click(962, 641)
-        pyautogui.hotkey('alt', 'f4')
+        self.close_game()
         sleep(5)
-        # print_progress(60+self.__duration_in_seconds()+16, self.total, prefix='Gameplay recording:')
-    
-        # print('Recorded match')
         return True
+
     
     def close_game(self):
         print('Wait for closing game')

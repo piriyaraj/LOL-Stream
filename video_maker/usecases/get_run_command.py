@@ -19,9 +19,7 @@ def scrape_lolpros_player(playerLink,playrName):
     # print(player_url)
     
     try:       
-        print("test1") 
         driver.get(player_url)
-        print("test2") 
         while True:
             try:
                 is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='content-container']/div/div/div[2]/div/button[2]")))
