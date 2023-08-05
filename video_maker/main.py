@@ -16,6 +16,7 @@ try:
     # playerTeam, playerIndex = get_commands(playerLink,playerName)
     playerTeam, playerIndex ="Blue",3
     gameController = ControlGamePlay(playerTeam,playerIndex)
-    video_file_name = gameController.control()
+    # video_file_name = gameController.control()
+    video_file_name = gameController.close_game()
 except Exception as e:
     print("Error(test): %s" % e)

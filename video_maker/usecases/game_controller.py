@@ -65,7 +65,7 @@ class ControlGamePlay:
         # Move mouse pointer down 5 times
         pyautogui.scroll(-700)
         
-        self.__close_game()
+        self.close_game()
         sleep(5)
         return True
 
@@ -86,14 +86,14 @@ class ControlGamePlay:
                 time.sleep(1)  # Wait for a second before checking again
     
     
-    def __close_game(self):
+    def close_game(self):
         print('Wait for closing game')
     # Load the target image
         target_image = Image.open(os.path.abspath("assets/img/closeButton.png"))
         
         while True:
             screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
-            result = pyautogui.locateOnScreen(target_image, confidence=0.64)  # Find the target image on the screenshot
+            result = pyautogui.locateOnScreen(target_image, confidence=0.7)  # Find the target image on the screenshot
             
             if result is not None:
                 button_position = pyautogui.center(result)  # Get the center of the found image
