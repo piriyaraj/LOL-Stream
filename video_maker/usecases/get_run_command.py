@@ -107,10 +107,10 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
                     # time.sleep(10)
         print("  -selected Team:",playerTeam)
         print("  -selected Index:",playerIndex)
-        if team is None :
-            index = int(playerIndex)+1
-            team = playerTeam
-            updated_no_played_game = get_no_played_game(team,index,driver)
+        # if team is None :
+        #     index = int(playerIndex)+1
+        #     team = playerTeam
+        #     updated_no_played_game = get_no_played_game(team,index,driver)
         is_gameplay_found.click()
         time.sleep(10)
         # click close button
