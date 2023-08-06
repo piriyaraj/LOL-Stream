@@ -54,7 +54,12 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
         while True:
             try:
                 is_gameplay_found = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
-
+                try :
+                    button =WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")))
+                    button.click()
+                    time.sleep(2)
+                except Exception as e :
+                    print("Error(click cookies accept):",e)
                 if team is not None :
                     updated_no_played_game = get_no_played_game(team,index,driver)
                     if no_of_played_game == updated_no_played_game:
@@ -111,12 +116,7 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
         #     index = int(playerIndex)+1
         #     team = playerTeam
         #     updated_no_played_game = get_no_played_game(team,index,driver)
-        try :
-            button = driver.find_element(By.XPATH,"//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")
-            button.click()
-            time.sleep(2)
-        except Exception as e :
-            print("Error(click cookies accept):",e)
+        
             
         is_gameplay_found.click()
         time.sleep(10)
