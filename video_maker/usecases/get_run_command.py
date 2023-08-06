@@ -33,9 +33,12 @@ def press_update_button(driver):
         updateButton.click()
         print("  -Update button clicked")
         time.sleep(4)
-        pydirectinput.press('enter')
-
-        # driver.refresh()
+        try:
+            alert = Alert(driver)
+            alert.accept()
+        except:
+            pass
+        
     except Exception as e:
         # print("  -Error(press_update_button): " + str(e))
         print("  -Update button not found")
@@ -50,7 +53,7 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
         driver.get(player_url)
         while True:
             try:
-                is_gameplay_found = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
+                is_gameplay_found = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
 
                 if team is not None :
                     updated_no_played_game = get_no_played_game(team,index,driver)
@@ -62,6 +65,7 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
                         time.sleep(5)
                         continue
                 print("New live game found")
+                
                 removeGameplay()
                 break
             except Exception as e:
@@ -69,6 +73,8 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
                 print("Live game not found")
                 press_update_button(driver)
                 time.sleep(5)
+                return "None", 0, driver, "None"
+                break
                 driver.get(player_url)
                 time.sleep(5)
         
@@ -107,6 +113,14 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
             updated_no_played_game = get_no_played_game(team,index,driver)
         is_gameplay_found.click()
         time.sleep(10)
+        # click close button
+        try :
+            button = driver.find_element(By.XPATH,"//button[@class='close']")
+            button.click()
+            time.sleep(2)
+        except Exception as e :
+            print("Error(click download):",e)
+        press_update_button(driver)
         return playerTeam, playerIndex, driver, updated_no_played_game
         
     except Exception as e:
@@ -123,5 +137,5 @@ def get_commands(playerLink,playrName,driver = None,team = None,index = None,no_
         driver = scrapper().driver
 
     playerTeam, playerIndex,driver, no_of_played_game= scrape_lolpros_player(playerLink,playrName, driver, team,index,no_of_played_game)
-
+    
     return playerTeam, int(playerIndex)+1 ,driver, no_of_played_game
