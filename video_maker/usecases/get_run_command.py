@@ -111,6 +111,13 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
         #     index = int(playerIndex)+1
         #     team = playerTeam
         #     updated_no_played_game = get_no_played_game(team,index,driver)
+        try :
+            button = driver.find_element(By.XPATH,"//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")
+            button.click()
+            time.sleep(2)
+        except Exception as e :
+            print("Error(click cookies accept):",e)
+            
         is_gameplay_found.click()
         time.sleep(10)
         # click close button
