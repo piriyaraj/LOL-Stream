@@ -42,3 +42,4 @@ if __name__ == "__main__":
         if(count == len(playerLinks)):
             count = 0
         Run(playerLink)
+        time.sleep(3*60)
