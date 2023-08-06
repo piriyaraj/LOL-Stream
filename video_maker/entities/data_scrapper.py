@@ -24,6 +24,7 @@ class DataScrapper:
             try:
                 gecko_driver_path = GeckoDriverManager().install()
                 self.driver = webdriver.Firefox(service=FirefoxService(gecko_driver_path), options=self.__options)
+                self.driver.maximize_window()
                 break  # Successfully initialized the driver
             except Exception as e:
                 print(f"Error initializing driver: {e}")

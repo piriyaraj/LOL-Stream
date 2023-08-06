@@ -14,12 +14,12 @@ class ControlGamePlay:
         self.__player_index = str(playerIndex)
 
     def control(self):
-        print("start run game")
+        print("   -start run game")
         self.__run_game()
 
-        # self.__start_game()
-        time.sleep(45)
-        print("click center of the screen")
+        self.__start_game()
+        time.sleep(5)
+        print("   -click center of the screen")
         # Get the size of the screen
         screen_width, screen_height = pydirectinput.size()
 
@@ -43,7 +43,7 @@ class ControlGamePlay:
         sleep(2)
         # print_progress(56, self.total, prefix='Gameplay recording:')
         # select champion
-        print("Selecting player")
+        print("   -Selecting player")
         self.__select_player()
         
         sleep(2)
@@ -53,7 +53,7 @@ class ControlGamePlay:
         sleep(1)
         # print_progress(59, self.total, prefix='Gameplay recording:')
         # zoom out
-        print("Zoom out the screen!")
+        print("   -Zoom out the screen!")
         # Click on the center of the screen
         pydirectinput.click(center_x, center_y)
         # Press and hold Ctrl+Shift+Z
@@ -71,7 +71,7 @@ class ControlGamePlay:
         return True
 
     def __start_game(self):
-        print('Wait for start game')
+        print('  -Wait for start game')
     # Load the target image
         target_image = Image.open(os.path.abspath("assets/img/startButton.png"))
         
@@ -81,14 +81,13 @@ class ControlGamePlay:
             
             if result is not None:
                 button_position = pyautogui.center(result)  # Get the center of the found image
-                print("game starting !")
+                print("  -game starting !")
                 return True  # Return True after clicking
             else:
                 time.sleep(1)  # Wait for a second before checking again
-    
-    
+
     def close_game(self):
-        print('Wait for closing game')
+        print('  -Wait for closing game')
     # Load the target image
         target_image = Image.open(os.path.abspath("assets/img/closeButton.png"))
         
@@ -98,8 +97,11 @@ class ControlGamePlay:
             
             if result is not None:
                 button_position = pyautogui.center(result)  # Get the center of the found image
-                pyautogui.click(button_position)  # Click the button
-                print("Close button clicked!")
+                sleep(3)
+                pyautogui.hotkey('alt', 'f4')
+                sleep(1)
+
+                print("  -Close button clicked!")
                 return True  # Return True after clicking
             else:
                 time.sleep(1)  # Wait for a second before checking again
@@ -109,17 +111,13 @@ class ControlGamePlay:
         subprocess.run(["start", "cmd", "/c", f"{self.__replay_file_dir}\{file}"], shell=True)
 
     def __select_player(self):
-        print("selected Team:",self.__player_team)
-        print("selected Index:",self.__player_index)
         if self.__player_team == 'Blue':
-            print("Change Blue player")
             pydirectinput.keyDown('f1')
             pydirectinput.keyUp('f1')
             pydirectinput.keyDown(self.__player_index)
             pydirectinput.keyUp(self.__player_index)
             pydirectinput.keyDown(self.__player_index)
             pydirectinput.keyUp(self.__player_index)
-            print("Changed Blue player")
         else:
             keys = ['q', 'w', 'e', 'r', 't']
             pydirectinput.keyDown('f2')
