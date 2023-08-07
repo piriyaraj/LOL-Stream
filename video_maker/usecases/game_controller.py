@@ -19,6 +19,10 @@ class ControlGamePlay:
 
         status = self.__start_game()
         if status == False:
+            pyautogui.hotkey('alt', 'f4')
+            sleep(3)
+            pyautogui.hotkey('alt', 'f4')
+            sleep(3)
             return True
         time.sleep(5)
         print("   -click center of the screen")
