@@ -5,14 +5,16 @@ from selenium.webdriver.firefox.options import Options
 import os
 import time
 
+
 class DataScrapper:
     def __init__(self) -> None:
         self.__download_path = os.path.abspath(r'.\media\gameplay')
         # SELENIUM
         self.__options = Options()
         # self.__options.headless = True
-        self.__options.set_preference('browser.download.dir', self.__download_path)
-        self.__options.set_preference("network.cookie.cookieBehavior", 2)
+        self.__options.set_preference(
+            'browser.download.dir', self.__download_path)
+        self.__options.set_preference("network.cookie.cookieBehavior", 0)
         self.__options.set_preference("browser.download.folderList", 2)
         self.__options.add_argument('--log-level=3')
         self.driver = None
@@ -23,7 +25,8 @@ class DataScrapper:
         for attempt in range(retries):
             try:
                 gecko_driver_path = GeckoDriverManager().install()
-                self.driver = webdriver.Firefox(service=FirefoxService(gecko_driver_path), options=self.__options)
+                self.driver = webdriver.Firefox(service=FirefoxService(
+                    gecko_driver_path), options=self.__options)
                 self.driver.maximize_window()
                 break  # Successfully initialized the driver
             except Exception as e:
