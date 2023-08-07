@@ -53,19 +53,19 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
         driver.get(player_url)
         while True:
             try:
+                is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
+                # time.sleep(5)
                 try :
                     button =WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")))
                     button.click()
                     time.sleep(1)
                 except Exception as e :
-                    print("  - Cookies option not available")
-                is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
-
+                    print("Error(click cookies accept):",e)
                 if team is not None :
                     updated_no_played_game = get_no_played_game(team,index,driver)
                     if no_of_played_game == updated_no_played_game:
                         print("Already played game Found")
-                        # press_update_button(driver)
+                        press_update_button(driver)
                         time.sleep(5)
                         driver.get(player_url)
                         time.sleep(5)
@@ -77,7 +77,7 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
             except Exception as e:
                 # print("Error", e)
                 print("Live game not found")
-                # press_update_button(driver)
+                press_update_button(driver)
                 time.sleep(1)
                 return "None", 0, driver, "None"
                 break
@@ -128,7 +128,7 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
             time.sleep(2)
         except Exception as e :
             print("Error(click download):",e)
-        # press_update_button(driver)
+        press_update_button(driver)
         return playerTeam, playerIndex, driver, updated_no_played_game
         
     except Exception as e:
