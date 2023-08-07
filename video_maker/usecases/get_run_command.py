@@ -55,7 +55,7 @@ def scrape_lolpros_player(playerLink,playrName,driver,team,index,no_of_played_ga
             try:
                 is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
                 try :
-                    button =WebDriverWait(driver, 1).until(EC.presence_of_element_located((By.XPATH, "//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")))
+                    button =WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")))
                     button.click()
                     time.sleep(1)
                 except Exception as e :
