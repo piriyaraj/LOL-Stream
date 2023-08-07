@@ -2,9 +2,7 @@
 import time
 from urllib.parse import unquote
 import os
-import subprocess
 from usecases.get_run_command import get_commands
-import subprocess
 
 from usecases.game_controller import ControlGamePlay
 
@@ -42,4 +40,5 @@ if __name__ == "__main__":
         if(count == len(playerLinks)):
             count = 0
         Run(playerLink)
-        time.sleep(3*60)
+        if(len(playerLinks)==1):
+            time.sleep(180)
