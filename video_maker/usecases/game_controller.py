@@ -17,7 +17,9 @@ class ControlGamePlay:
         print("   -start run game")
         self.__run_game()
 
-        self.__start_game()
+        status = self.__start_game()
+        if status == False:
+            return True
         time.sleep(5)
         print("   -click center of the screen")
         # Get the size of the screen
@@ -74,7 +76,7 @@ class ControlGamePlay:
         print('  -Wait for start game')
     # Load the target image
         target_image = Image.open(os.path.abspath("assets/img/startButton.png"))
-        
+        count = 0
         while True:
             screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
             result = pyautogui.locateOnScreen(target_image, confidence=0.64)  # Find the target image on the screenshot
@@ -84,7 +86,10 @@ class ControlGamePlay:
                 print("  -game starting !")
                 return True  # Return True after clicking
             else:
-                time.sleep(1)  # Wait for a second before checking again
+                time.sleep(10)  # Wait for a second before checking again
+                if count >= 180:
+                    return False
+                count+=10
 
     def close_game(self):
         print('  -Wait for closing game')
@@ -104,7 +109,7 @@ class ControlGamePlay:
                 print("  -Close button clicked!")
                 return True  # Return True after clicking
             else:
-                time.sleep(1)  # Wait for a second before checking again
+                time.sleep(10)  # Wait for a second before checking again
     
     def __run_game(self):
         file = os.listdir(self.__replay_file_dir)[0]
