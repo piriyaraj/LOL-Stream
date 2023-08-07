@@ -11,8 +11,8 @@ class DataScrapper:
         # SELENIUM
         self.__options = Options()
         self.__options.headless = True
-        self.__options.set_preference(
-            'browser.download.dir', self.__download_path)
+        self.__options.set_preference('browser.download.dir', self.__download_path)
+        self.__options.set_preference("network.cookie.cookieBehavior", 2)
         self.__options.set_preference("browser.download.folderList", 2)
         self.__options.add_argument('--log-level=3')
         self.driver = None
