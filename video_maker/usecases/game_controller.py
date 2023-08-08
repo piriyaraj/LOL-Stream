@@ -76,7 +76,7 @@ class ControlGamePlay:
         pyautogui.scroll(-700)
 
         self.close_game()
-        sleep(65)
+        sleep(60*3)
         return True
 
     def __start_game(self):
