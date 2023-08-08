@@ -15,6 +15,7 @@ is_cookie_button_pressed = False
 
 def is_game_already_played():
     file = os.listdir(os.path.abspath(r'.\media\gameplay'))[0]
+    print("  -gamePlay: " + file)
     with open(os.path.join(os.path.abspath(r'.\media\gameplay'), file), 'r') as runnerfile:
         data = runnerfile.read()
     gameId = data.split(".lol.pvp.net:80 ")[1].split('" "-UseRads')[0]
