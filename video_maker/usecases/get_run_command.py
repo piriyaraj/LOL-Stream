@@ -56,7 +56,7 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
         driver.get(player_url)
         while True:
             try:
-                is_gameplay_found = WebDriverWait(driver, 60).until(EC.presence_of_element_located(
+                is_gameplay_found = WebDriverWait(driver, 30).until(EC.presence_of_element_located(
                     (By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
                 # time.sleep(5)
                 try:
@@ -127,7 +127,7 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
         #     updated_no_played_game = get_no_played_game(team,index,driver)
 
         is_gameplay_found.click()
-        time.sleep(5)
+        time.sleep(10)
         # click close button
         try:
             button = driver.find_element(By.XPATH, "//button[@class='close']")

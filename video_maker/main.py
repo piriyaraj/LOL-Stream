@@ -40,5 +40,4 @@ if __name__ == "__main__":
         if(count == len(playerLinks)):
             count = 0
         Run(playerLink)
-        if(len(playerLinks)==1):
-            time.sleep(180)
+        time.sleep(60)
