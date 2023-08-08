@@ -105,7 +105,7 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
             player_name = team_red[i].text
             if playrName.lower() in player_name.lower():
                 playerTeam = "Red"
-                playerIndex = int(i)
+                playerIndex = int(i)+1
                 # press_update_button(driver)
                 isFound = True
                 # time.sleep(10)
@@ -116,9 +116,10 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
                 player_name = team_blue[i].text
                 if playrName.lower() in player_name.lower():
                     playerTeam = "Blue"
-                    playerIndex = int(i)
+                    playerIndex = int(i)+1
                     # press_update_button(driver)
                     # time.sleep(10)
+                    
         print("  -selected Team:", playerTeam)
         print("  -selected Index:", playerIndex)
         # if team is None :
