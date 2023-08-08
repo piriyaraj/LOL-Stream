@@ -24,9 +24,8 @@ class DataScrapper:
         retries = 3  # Number of retries
         for attempt in range(retries):
             try:
-                gecko_driver_path = GeckoDriverManager().install()
-                self.driver = webdriver.Firefox(service=FirefoxService(
-                    gecko_driver_path), options=self.__options)
+                gecko_driver_path = os.path.abspath("/assets/geckodriver.exe")
+                self.driver = webdriver.Firefox(options=self.__options)
                 self.driver.maximize_window()
                 break  # Successfully initialized the driver
             except Exception as e:

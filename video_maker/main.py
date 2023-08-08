@@ -26,9 +26,9 @@ def Run(playerLink):
     no_of_played_game = None
 
     playerTeam, playerIndex, driver, no_of_played_game = get_commands(playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
-    if playerTeam != "None":
-        gameController = ControlGamePlay(playerTeam,playerIndex)
-        gameController.control()
+    # if playerTeam != "None":
+    #     gameController = ControlGamePlay(playerTeam,playerIndex)
+    #     gameController.control()
         
 if __name__ == "__main__":
     count = 0

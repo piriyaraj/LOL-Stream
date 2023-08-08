@@ -9,6 +9,20 @@ from selenium.webdriver.common.alert import Alert
 import pydirectinput
 
 # get the player name and get the live player name
+playedGames = []
+is_cookie_button_pressed = False
+
+
+def is_game_already_played():
+    file = os.listdir(os.path.abspath(r'.\media\gameplay'))[0]
+    with open(os.path.join(os.path.abspath(r'.\media\gameplay'), file), 'r') as runnerfile:
+        data = runnerfile.read()
+    gameId = data.split(".lol.pvp.net:80 ")[1].split('" "-UseRads')[0]
+    if gameId in playedGames:
+        return True
+    else:
+        playedGames.append(gameId)
+        return False
 
 
 def get_no_played_game(team, index, driver):
@@ -47,6 +61,7 @@ def press_update_button(driver):
 
 
 def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_played_game):
+    global is_cookie_button_pressed
     playerTeam = ""
     playerIndex = ""
     player_url = f"{playerLink}"
@@ -59,13 +74,16 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
                 is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located(
                     (By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
                 # time.sleep(5)
-                try:
-                    button = WebDriverWait(driver, 10).until(EC.presence_of_element_located(
-                        (By.XPATH, "//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")))
-                    button.click()
-                    time.sleep(1)
-                except Exception as e:
-                    print("Error(click cookies accept):", e)
+                if not is_cookie_button_pressed:
+                    try:
+                        button = WebDriverWait(driver, 10).until(EC.presence_of_element_located(
+                            (By.XPATH, "//button[@mode='primary' and @size='large' and contains(span, 'GODKÄNN')]")))
+                        button.click()
+                        time.sleep(1)
+                        print("  -cookies button pressed")
+                        is_cookie_button_pressed = True
+                    except Exception as e:
+                        pass
                 if team is not None:
                     updated_no_played_game = get_no_played_game(
                         team, index, driver)
@@ -81,7 +99,6 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
                 removeGameplay()
                 break
             except Exception as e:
-                # print("Error", e)
                 print("Live game not found")
                 # press_update_button(driver)
                 time.sleep(1)
@@ -119,7 +136,7 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
                     playerIndex = int(i)
                     # press_update_button(driver)
                     # time.sleep(10)
-                    
+
         print("  -selected Team:", playerTeam)
         print("  -selected Index:", playerIndex+1)
         # if team is None :
@@ -130,6 +147,10 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
         is_gameplay_found.click()
         time.sleep(5)
         # click close button
+        status = is_game_already_played()
+        if status:
+            print("  -already_played")
+            return "None", 0, driver, "None"
         try:
             button = driver.find_element(By.XPATH, "//button[@class='close']")
             button.click()
