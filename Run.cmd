@@ -20,4 +20,4 @@ pip install -r requirements.txt > log.txt 2>&1
 
 call python video_maker/main.py
 
-
+pause
