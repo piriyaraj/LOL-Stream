@@ -26,6 +26,7 @@ def Run(playerLink):
     no_of_played_game = None
 
     playerTeam, playerIndex, driver, no_of_played_game = get_commands(playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
+    # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None":
         gameController = ControlGamePlay(playerTeam,playerIndex)
         gameController.control()
@@ -40,3 +41,4 @@ if __name__ == "__main__":
         if(count == len(playerLinks)):
             count = 0
         Run(playerLink)
+        # break
