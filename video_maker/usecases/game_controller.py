@@ -104,17 +104,17 @@ class ControlGamePlay:
     def close_game(self):
         print('  -Wait for closing game')
     # Load the target image
-        target_image = Image.open(
-            os.path.abspath("assets/img/closeButton.png"))
-        target_image1 = Image.open(
-            os.path.abspath("assets/img/closeButton.png"))
-
+        target_image = Image.open(os.path.abspath("assets/img/closeButton.png"))
+        try:
+            target_image1 = Image.open(os.path.abspath("media/screenshot/screenshot.jpg"))
+        except:
+            target_image1 =target_image
         while True:
             screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
-            screenshot.save("media/screenshot/screenshot.png")
+            screenshot.save("media/screenshot/screenshot.jpg")
             # Find the target image on the screenshot
             result = pyautogui.locateOnScreen(target_image, confidence=0.8)
-            result1 = pyautogui.locateOnScreen(target_image, confidence=0.737)
+            result1 = pyautogui.locateOnScreen(target_image1, confidence=0.8)
 
             if result is not None:
                 # Get the center of the found image
@@ -129,14 +129,13 @@ class ControlGamePlay:
                 sleep(3)
                 pyautogui.hotkey('alt', 'f4')
                 sleep(3)
-                pyautogui.hotkey('alt', 'f4')
+                # pyautogui.hotkey('alt', 'f4')
 
                 print("  -Close button clicked!")
                 return True  # Return True after clicking
             else:
                 time.sleep(10)  # Wait for a second before checking again
-                target_image1 = Image.open(os.path.abspath(
-                    "media/screenshot/screenshot.png"))
+                target_image1 = Image.open(os.path.abspath("media/screenshot/screenshot.jpg"))
 
     def __run_game(self):
         try:

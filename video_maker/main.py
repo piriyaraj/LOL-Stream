@@ -8,6 +8,8 @@ from usecases.game_controller import ControlGamePlay
 
 if not os.path.exists("media/gameplay"):
     os.makedirs("media/gameplay")
+if not os.path.exists("media/screenshot"):
+    os.makedirs("media/screenshot")
 if not os.path.exists("../playerLinks.txt"):
     with open("../playerLinks.txt","w") as player:
         pass
@@ -25,8 +27,8 @@ def Run(playerLink):
     playerIndex = None
     no_of_played_game = None
 
-    playerTeam, playerIndex, driver, no_of_played_game = get_commands(playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
-    # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
+    # playerTeam, playerIndex, driver, no_of_played_game = get_commands(playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
+    playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None":
         gameController = ControlGamePlay(playerTeam,playerIndex)
         gameController.control()
@@ -41,4 +43,4 @@ if __name__ == "__main__":
         if(count == len(playerLinks)):
             count = 0
         Run(playerLink)
-        # break
+        break
