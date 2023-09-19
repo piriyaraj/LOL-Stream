@@ -133,7 +133,7 @@ class ControlGamePlay:
                 sleep(20)
                 # pyautogui.hotkey('alt', 'f4')
 
-                print("  -Close button clicked!")
+                print("  -frozen screen closed!")
                 return True  # Return True after clicking
             else:
                 time.sleep(10)  # Wait for a second before checking again
