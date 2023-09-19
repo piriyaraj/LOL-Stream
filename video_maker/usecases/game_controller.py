@@ -7,6 +7,8 @@ import pydirectinput
 from PIL import ImageGrab
 from PIL import Image
 
+from usecases.freezefinder import checkFrozen
+
 
 class ControlGamePlay:
     def __init__(self, playerTeam, playerIndex) -> None:
@@ -103,7 +105,13 @@ class ControlGamePlay:
 
     def close_game(self):
         print('  -Wait for closing game')
-    # Load the target image
+        # Load the target image
+        status = checkFrozen()
+        sleep(3)
+        pyautogui.hotkey('alt', 'f4')
+        sleep(1)
+        print("  -Close button clicked!")
+        return
         target_image = Image.open(
             os.path.abspath("assets/img/closeButton.png"))
         try:
@@ -117,7 +125,6 @@ class ControlGamePlay:
             # Find the target image on the screenshot
             result = pyautogui.locateOnScreen(target_image, confidence=0.8)
             result1 = pyautogui.locateOnScreen(target_image1, confidence=0.95)
-
             if result is not None:
                 # Get the center of the found image
                 # button_position = pyautogui.center(result)
