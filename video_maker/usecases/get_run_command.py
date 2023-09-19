@@ -16,9 +16,13 @@ is_cookie_button_pressed = False
 def is_game_already_played():
     file = os.listdir(os.path.abspath(r'.\media\gameplay'))[0]
     print("  -gamePlay: " + file)
+    
+    
     with open(os.path.join(os.path.abspath(r'.\media\gameplay'), file), 'r') as runnerfile:
         data = runnerfile.read()
+    # print("check 0")
     gameId = data.split(".lol.pvp.net:80 ")[1].split('" "-UseRads')[0]
+    # print("check 0.1",playedGames)
     if gameId in playedGames:
         return True
     else:
@@ -146,9 +150,10 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
         #     updated_no_played_game = get_no_played_game(team,index,driver)
 
         is_gameplay_found.click()
-        time.sleep(5)
+        time.sleep(10)
         # click close button
         status = is_game_already_played()
+        # print("check 1")
         if status:
             print("  -already_played")
             return "None", 0, driver, "None"
