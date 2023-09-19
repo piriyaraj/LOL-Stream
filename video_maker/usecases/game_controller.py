@@ -116,7 +116,7 @@ class ControlGamePlay:
             screenshot.save("media/screenshot/screenshot.jpg")
             # Find the target image on the screenshot
             result = pyautogui.locateOnScreen(target_image, confidence=0.8)
-            result1 = pyautogui.locateOnScreen(target_image1, confidence=1)
+            result1 = pyautogui.locateOnScreen(target_image1, confidence=0.95)
 
             if result is not None:
                 # Get the center of the found image
