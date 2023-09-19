@@ -130,7 +130,7 @@ class ControlGamePlay:
             elif result1 is not None:
                 sleep(3)
                 pyautogui.hotkey('alt', 'f4')
-                sleep(3)
+                sleep(20)
                 # pyautogui.hotkey('alt', 'f4')
 
                 print("  -Close button clicked!")
