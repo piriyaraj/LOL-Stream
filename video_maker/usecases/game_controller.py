@@ -109,7 +109,7 @@ class ControlGamePlay:
         status = checkFrozen()
         sleep(3)
         pyautogui.hotkey('alt', 'f4')
-        sleep(1)
+        sleep(10)
         print("  -Close button clicked!")
         return
         target_image = Image.open(
