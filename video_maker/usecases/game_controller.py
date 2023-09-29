@@ -106,46 +106,30 @@ class ControlGamePlay:
     def close_game(self):
         print('  -Wait for closing game')
         # Load the target image
-        status = checkFrozen()
-        sleep(3)
-        pyautogui.hotkey('alt', 'f4')
-        sleep(10)
-        print("  -Close button clicked!")
-        return
+        # status = checkFrozen()
+        # sleep(3)
+        # pyautogui.hotkey('alt', 'f4')
+        # sleep(10)
+        # print("  -Close button clicked!")
+        # return
         target_image = Image.open(
             os.path.abspath("assets/img/closeButton.png"))
-        try:
-            target_image1 = Image.open(os.path.abspath(
-                "media/screenshot/screenshot.jpg"))
-        except:
-            target_image1 = target_image
         while True:
             screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
             screenshot.save("media/screenshot/screenshot.jpg")
             # Find the target image on the screenshot
             result = pyautogui.locateOnScreen(target_image, confidence=0.8)
-            result1 = pyautogui.locateOnScreen(target_image1, confidence=0.95)
+            # result1 = pyautogui.locateOnScreen(target_image1, confidence=0.95)
             if result is not None:
-                # Get the center of the found image
-                # button_position = pyautogui.center(result)
                 sleep(3)
                 pyautogui.hotkey('alt', 'f4')
                 sleep(1)
 
                 print("  -Close button clicked!")
                 return True  # Return True after clicking
-            elif result1 is not None:
-                sleep(3)
-                pyautogui.hotkey('alt', 'f4')
-                sleep(20)
-                # pyautogui.hotkey('alt', 'f4')
-
-                print("  -frozen screen closed!")
-                return True  # Return True after clicking
             else:
                 time.sleep(10)  # Wait for a second before checking again
-                target_image1 = Image.open(os.path.abspath(
-                    "media/screenshot/screenshot.jpg"))
+
 
     def __run_game(self):
         try:
