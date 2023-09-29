@@ -115,8 +115,8 @@ class ControlGamePlay:
         target_image = Image.open(
             os.path.abspath("assets/img/closeButton.png"))
         while True:
-            screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
-            screenshot.save("media/screenshot/screenshot.jpg")
+            # screenshot = ImageGrab.grab()  # Take a screenshot of the entire screen
+            # screenshot.save("media/screenshot/screenshot.jpg")
             # Find the target image on the screenshot
             result = pyautogui.locateOnScreen(target_image, confidence=0.8)
             # result1 = pyautogui.locateOnScreen(target_image1, confidence=0.95)
