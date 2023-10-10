@@ -142,16 +142,18 @@ class ControlGamePlay:
 
     def __select_player(self):
         if self.__player_team == 'Blue':
-            pydirectinput.keyDown('f1')
-            pydirectinput.keyUp('f1')
+            # f1
+            pydirectinput.keyDown('f3')
+            pydirectinput.keyUp('f3')
             pydirectinput.keyDown(self.__player_index)
             pydirectinput.keyUp(self.__player_index)
             pydirectinput.keyDown(self.__player_index)
             pydirectinput.keyUp(self.__player_index)
         else:
             keys = ['q', 'w', 'e', 'r', 't']
-            pydirectinput.keyDown('f2')
-            pydirectinput.keyUp('f2')
+            # f2
+            pydirectinput.keyDown('f3')
+            pydirectinput.keyUp('f3')
             pydirectinput.keyDown(
                 keys[int(self.__player_index) - 1])
             pydirectinput.keyUp(
