@@ -42,5 +42,7 @@ if __name__ == "__main__":
         count += 1
         if(count == len(playerLinks)):
             count = 0
-        Run(playerLink)
-        # break
+        try:
+            Run(playerLink)
+        except Exception as e:
+            print("Error:", str(e))
