@@ -11,10 +11,11 @@ if not os.path.exists("media/gameplay"):
 if not os.path.exists("media/screenshot"):
     os.makedirs("media/screenshot")
 if not os.path.exists("../playerLinks.txt"):
-    with open("../playerLinks.txt","w") as player:
+    with open("../playerLinks.txt", "w") as player:
         pass
 
 driver = None
+
 
 def Run(playerLink):
     global driver
@@ -27,20 +28,22 @@ def Run(playerLink):
     playerIndex = None
     no_of_played_game = None
 
-    playerTeam, playerIndex, driver, no_of_played_game = get_commands(playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
+    playerTeam, playerIndex, driver, no_of_played_game = get_commands(
+        playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
     # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None":
-        gameController = ControlGamePlay(playerTeam,playerIndex)
+        gameController = ControlGamePlay(playerTeam, playerIndex)
         gameController.control()
-        
+
+
 if __name__ == "__main__":
     count = 0
     with open("../playerLinks.txt", "r") as file:
         playerLinks = file.readlines()
     while True:
-        playerLink = playerLinks[count%len(playerLinks)].strip()
+        playerLink = playerLinks[count % len(playerLinks)].strip()
         count += 1
-        if(count == len(playerLinks)):
+        if (count == len(playerLinks)):
             count = 0
         try:
             Run(playerLink)
