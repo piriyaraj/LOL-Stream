@@ -6,6 +6,33 @@ from usecases.get_run_command import get_commands
 
 from usecases.game_controller import ControlGamePlay
 
+import time
+import pygetwindow as gw
+
+
+def closeGame():
+    target_window_title = "league of legends (TM) client"
+
+    # Get a list of all open windows
+    open_windows = gw.getWindowsWithTitle(target_window_title)
+
+    if open_windows:
+        while True:
+            print(f"{target_window_title} is open.")
+            # Close the window
+
+            open_windows = gw.getWindowsWithTitle(target_window_title)
+            if open_windows:
+                open_windows[0].close()
+                print(f"{target_window_title} has been closed.")
+                time.sleep(5)
+                continue
+            else:
+                break
+    else:
+        print(f"{target_window_title} is not open.")
+
+
 if not os.path.exists("media/gameplay"):
     os.makedirs("media/gameplay")
 if not os.path.exists("media/screenshot"):
@@ -31,9 +58,15 @@ def Run(playerLink):
     playerTeam, playerIndex, driver, no_of_played_game = get_commands(
         playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
     # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
-    if playerTeam != "None":
+    if playerTeam != "None" and playerTeam != "Not found":
         gameController = ControlGamePlay(playerTeam, playerIndex)
         gameController.control()
+    elif playerTeam == "Not found":
+        pass
+    else:
+        driver = None
+        closeGame()
+        pass
 
 
 if __name__ == "__main__":

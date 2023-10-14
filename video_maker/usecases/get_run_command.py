@@ -21,13 +21,16 @@ def is_game_already_played():
     with open(os.path.join(os.path.abspath(r'.\media\gameplay'), file), 'r') as runnerfile:
         data = runnerfile.read()
     # print("check 0")
-    gameId = data.split(".lol.pvp.net:80 ")[1].split('" "-UseRads')[0]
+    try:
+        gameId = data.split(".lol.pvp.netrrc")[1].split('" "-UseRads')[0]
+    except:
+        return False
     # print("check 0.1",playedGames)
     if gameId in playedGames:
         return True
     else:
         playedGames.append(gameId)
-        return False
+        return Falsenou
 
 
 def get_no_played_game(team, index, driver):
@@ -107,7 +110,7 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
                 print("Live game not found")
                 # press_update_button(driver)
                 time.sleep(1)
-                return "None", 0, driver, "None"
+                return "Not found", 0, driver, "None"
                 break
                 driver.get(player_url)
                 time.sleep(5)
@@ -156,7 +159,7 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
         # print("check 1")
         if status:
             print("  -already_played")
-            return "None", 0, driver, "None"
+            return "Not found", 0, driver, "None"
         try:
             button = driver.find_element(By.XPATH, "//button[@class='close']")
             button.click()
@@ -168,6 +171,7 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
 
     except Exception as e:
         print(f"Error(scrape_lolpros_player): {e}")
+        driver.quit()
         return "None", 0, driver, "None"
     # finally:
     #     driver.quit()

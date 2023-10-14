@@ -8,7 +8,31 @@ from PIL import ImageGrab
 from PIL import Image
 
 from usecases.freezefinder import checkFrozen
+import time
+import pygetwindow as gw
 
+
+def closeGame():
+    target_window_title = "league of legends (TM) client"
+
+    # Get a list of all open windows
+    open_windows = gw.getWindowsWithTitle(target_window_title)
+
+    if open_windows:
+        while True:
+            print(f"{target_window_title} is open.")
+            # Close the window
+
+            open_windows = gw.getWindowsWithTitle(target_window_title)
+            if open_windows:
+                open_windows[0].close()
+                print(f"{target_window_title} has been closed.")
+                time.sleep(5)
+                continue
+            else:
+                break
+    else:
+        print(f"{target_window_title} is not open.")
 
 class ControlGamePlay:
     def __init__(self, playerTeam, playerIndex) -> None:
@@ -24,11 +48,9 @@ class ControlGamePlay:
 
         status = self.__start_game()
         if status == False:
-            pyautogui.hotkey('alt', 'f4')
-            sleep(3)
-            pyautogui.hotkey('alt', 'f4')
-            sleep(3)
+            closeGame()
             return True
+        
         time.sleep(5)
         print("   -click center of the screen")
         # Get the size of the screen
