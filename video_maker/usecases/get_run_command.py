@@ -16,21 +16,20 @@ is_cookie_button_pressed = False
 def is_game_already_played():
     file = os.listdir(os.path.abspath(r'.\media\gameplay'))[0]
     print("  -gamePlay: " + file)
-    
-    
+
     with open(os.path.join(os.path.abspath(r'.\media\gameplay'), file), 'r') as runnerfile:
         data = runnerfile.read()
     # print("check 0")
     try:
-        gameId = data.split(".lol.pvp.netrrc")[1].split('" "-UseRads')[0]
+        gameId = data.split(".lol.pvp.net:80 ")[1].split('" "-UseRads')[0]
     except:
-        return False
+        return True
     # print("check 0.1",playedGames)
     if gameId in playedGames:
         return True
     else:
         playedGames.append(gameId)
-        return Falsenou
+        return False
 
 
 def get_no_played_game(team, index, driver):
