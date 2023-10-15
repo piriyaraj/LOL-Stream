@@ -12,7 +12,9 @@ import pydirectinput
 playedGames = []
 is_cookie_button_pressed = False
 
-
+def changePlayedGame():
+    if playedGames:
+        playedGames.pop()
 def is_game_already_played():
     file = os.listdir(os.path.abspath(r'.\media\gameplay'))[0]
     print("  -gamePlay: " + file)
@@ -170,6 +172,8 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
 
     except Exception as e:
         print(f"Error(scrape_lolpros_player): {e}")
+        if playedGames:
+            playedGames.pop()
         driver.quit()
         return "None", 0, driver, "None"
     # finally:

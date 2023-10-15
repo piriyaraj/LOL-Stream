@@ -49,7 +49,7 @@ class ControlGamePlay:
         status = self.__start_game()
         if status == False:
             closeGame()
-            return True
+            return "crashed"
         
         time.sleep(5)
         print("   -click center of the screen")

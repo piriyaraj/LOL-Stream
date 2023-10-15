@@ -9,6 +9,8 @@ from usecases.game_controller import ControlGamePlay
 import time
 import pygetwindow as gw
 
+from usecases.get_run_command import changePlayedGame
+
 
 def closeGame():
     target_window_title = "league of legends (TM) client"
@@ -60,7 +62,9 @@ def Run(playerLink):
     # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None" and playerTeam != "Not found":
         gameController = ControlGamePlay(playerTeam, playerIndex)
-        gameController.control()
+        out = gameController.control()
+        if out == "crashed":
+            changePlayedGame()
     elif playerTeam == "Not found":
         pass
     else:
