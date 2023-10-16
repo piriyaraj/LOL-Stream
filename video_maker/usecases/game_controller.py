@@ -34,6 +34,7 @@ def closeGame():
     else:
         print(f"{target_window_title} is not open.")
 
+
 class ControlGamePlay:
     def __init__(self, playerTeam, playerIndex) -> None:
         self.__replay_file_dir = os.path.abspath(r'.\media\gameplay')
@@ -50,7 +51,7 @@ class ControlGamePlay:
         if status == False:
             closeGame()
             return "crashed"
-        
+
         time.sleep(5)
         print("   -click center of the screen")
         # Get the size of the screen
@@ -121,7 +122,7 @@ class ControlGamePlay:
                 return True  # Return True after clicking
             else:
                 time.sleep(10)  # Wait for a second before checking again
-                if count >= 180:
+                if count >= 300:
                     return False
                 count += 10
 
@@ -151,7 +152,6 @@ class ControlGamePlay:
                 return True  # Return True after clicking
             else:
                 time.sleep(10)  # Wait for a second before checking again
-
 
     def __run_game(self):
         try:
