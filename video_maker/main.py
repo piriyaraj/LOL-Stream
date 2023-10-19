@@ -61,6 +61,8 @@ def Run(playerLink):
         playerLink, playerName, driver, playerTeam, playerIndex, no_of_played_game)
     # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None" and playerTeam != "Not found":
+        time.sleep(2)
+        
         gameController = ControlGamePlay(playerTeam, playerIndex)
         out = gameController.control()
         if out == "crashed":
