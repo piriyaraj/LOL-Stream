@@ -1,4 +1,5 @@
 # import package
+import datetime
 import os
 import time
 from entities.data_scrapper import DataScrapper as scrapper
@@ -7,6 +8,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.alert import Alert
 import pydirectinput
+
+from usecases.metaDataCollection import getMetaData
+from usecases.create_thumbnail import CreateThumbnail
 
 # get the player name and get the live player name
 playedGames = []
@@ -69,7 +73,7 @@ def press_update_button(driver):
         print("  -Update button not found")
 
 
-def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_played_game):
+def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, index, no_of_played_game):
     global is_cookie_button_pressed
     playerTeam = ""
     playerIndex = ""
@@ -168,6 +172,9 @@ def scrape_lolpros_player(playerLink, playrName, driver, team, index, no_of_play
         except Exception as e:
             print("Error(click download):", e)
         # press_update_button(driver)
+        data = getMetaData(driver,playerLink,new_folder_path)
+        thumbCreation = CreateThumbnail(driver,data,new_folder_path)
+        thumbCreation.create_thumbnail()
         return playerTeam, playerIndex, driver, updated_no_played_game
 
     except Exception as e:
@@ -185,11 +192,11 @@ def removeGameplay():
         os.remove(os.path.join(os.path.abspath("media/gameplay"), i))
 
 
-def get_commands(playerLink, playrName, driver=None, team=None, index=None, no_of_played_game=None):
+def get_commands(playerLink, playrName,new_folder_path, driver=None, team=None, index=None, no_of_played_game=None):
     if driver is None:
         driver = scrapper().driver
 
-    playerTeam, playerIndex, driver, no_of_played_game = scrape_lolpros_player(
+    playerTeam, playerIndex, driver, no_of_played_game = scrape_lolpros_player(new_folder_path,
         playerLink, playrName, driver, team, index, no_of_played_game)
 
     return playerTeam, int(playerIndex)+1, driver, no_of_played_game
