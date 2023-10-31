@@ -16,9 +16,33 @@ from entities.match_data import MatchData
 
 class UploadYoutube:
     def __init__(self, match_data: MatchData, video_file_name: str) -> None:
-        
+        self.__CLIENT_SECRETS_FILE = "./credentials/client_secrets.json"
+        self.__YOUTUBE_UPLOAD_SCOPE = ["https://www.googleapis.com/auth/youtube",
+          "https://www.googleapis.com/auth/youtube.force-ssl",
+          "https://www.googleapis.com/auth/youtube.readonly",
+          "https://www.googleapis.com/auth/youtubepartner",
+          "https://www.googleapis.com/auth/youtubepartner-channel-audit"]
+        self.__YOUTUBE_API_SERVICE_NAME = "youtube"
+        self.__YOUTUBE_API_VERSION = "v3"
+        self.__VALID_PRIVACY_STATUSES = ("public", "private", "unlisted")
+        self.__MISSING_CLIENT_SECRETS_MESSAGE = f"""
+        WARNING: Please configure OAuth 2.0
+
+        To make this sample run you will need to populate the client_secrets.json file
+        found at:
+
+          {os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                          self.__CLIENT_SECRETS_FILE))}
+
+        with information from the API Console
+        https://console.developers.google.com/
+
+        For more information about the client_secrets.json file format, please visit:
+        https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
+        """
         self.__thumb_file = os.path.abspath(r'.\media\thumb\thumb.png')
         self.__file = video_file_name
+        self.__get_authenticated_service()
         self.playlist_name_list = [match_data['mvp']['champion'],"Region "+match_data['region'],"Patch "+match_data['patch']]
         self.playlist_from_youtube = {}
         # self.__title = f"{match_data['mvp']['champion']} {match_data['player_role']} vs {match_data['loser']} - {match_data['region']} {match_data['mvp']['rank']} Patch "
@@ -55,30 +79,7 @@ class UploadYoutube:
         self.__MAX_RETRIES = 10
         self.__RETRIABLE_EXCEPTIONS = (httplib2.HttpLib2Error)
         self.__RETRIABLE_STATUS_CODES = [500, 502, 503, 504]
-        self.__CLIENT_SECRETS_FILE = "./credentials/client_secrets.json"
-        self.__YOUTUBE_UPLOAD_SCOPE = ["https://www.googleapis.com/auth/youtube",
-          "https://www.googleapis.com/auth/youtube.force-ssl",
-          "https://www.googleapis.com/auth/youtube.readonly",
-          "https://www.googleapis.com/auth/youtubepartner",
-          "https://www.googleapis.com/auth/youtubepartner-channel-audit"]
-        self.__YOUTUBE_API_SERVICE_NAME = "youtube"
-        self.__YOUTUBE_API_VERSION = "v3"
-        self.__VALID_PRIVACY_STATUSES = ("public", "private", "unlisted")
-        self.__MISSING_CLIENT_SECRETS_MESSAGE = f"""
-        WARNING: Please configure OAuth 2.0
 
-        To make this sample run you will need to populate the client_secrets.json file
-        found at:
-
-          {os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                          self.__CLIENT_SECRETS_FILE))}
-
-        with information from the API Console
-        https://console.developers.google.com/
-
-        For more information about the client_secrets.json file format, please visit:
-        https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
-        """
 
     def extract_spell_name(self, url):
         match = re.search(r"/([^/]+)$", url)

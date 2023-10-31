@@ -54,3 +54,27 @@ def videoUploader():
         # Optionally remove the folder after processing
         # removeFolder(folder_path)
 
+if __name__ == '__main__':
+    # Create a folder inside the 'yt' directory
+    new_folder_name = 'test_folder'
+    new_folder_path = os.path.join(base, new_folder_name)
+    os.makedirs(new_folder_path, exist_ok=True)
+
+    # Create dummy files inside the new folder
+    with open(os.path.join(new_folder_path, 'thumbnail.png'), 'w') as thumbnail_file:
+        thumbnail_file.write('Thumbnail content')
+
+    match_data = {
+        'title': 'Test Video',
+        'description': 'This is a test video',
+        # Add other required fields
+    }
+    with open(os.path.join(new_folder_path, 'match_data.json'), 'w', encoding='utf-8') as match_data_file:
+        json.dump(match_data, match_data_file)
+
+    with open(os.path.join(new_folder_path, 'test.mkv'), 'w') as test_video_file:
+        test_video_file.write('Test video content')
+
+    # Call the videoUploader function
+    videoUploader()
+    pass
