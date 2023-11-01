@@ -15,7 +15,7 @@ from entities.match_data import MatchData
 
 
 class UploadYoutube:
-    def __init__(self, match_data: MatchData, video_file_name: str) -> None:
+    def __init__(self, match_data: MatchData, video_file_name: str,thumbnail_file) -> None:
         self.__CLIENT_SECRETS_FILE = "./credentials/client_secrets.json"
         self.__YOUTUBE_UPLOAD_SCOPE = ["https://www.googleapis.com/auth/youtube",
           "https://www.googleapis.com/auth/youtube.force-ssl",

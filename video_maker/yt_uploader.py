@@ -46,7 +46,7 @@ def videoUploader():
         try:
             with open(matchData_path, 'r',encoding='utf-8') as matchData:
                 match_data = json.load(matchData)
-                uploader = UploadYoutube(match_data, videoPath)
+                uploader = UploadYoutube(match_data, videoPath,thumbnail)
                 uploader.upload_video()
         except Exception as e:
             print(f"Error processing folder '{folder_path}': {str(e)}")

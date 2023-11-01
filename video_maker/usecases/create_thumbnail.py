@@ -17,7 +17,7 @@ class CreateThumbnail:
         self.scrapper = data_scrapper
         self.lol_data = data
         self.folder = new_folder_path
-        self.__thumb_path = os.path.join(self.folder,'thumb.png')
+        self.__thumb_path = os.path.join(self.folder,'thumbnail.png')
         self.__replay_file_dir = os.path.abspath(r'.\media\replays')
         # file = os.listdir(self.__replay_file_dir)[0].split(".")[0]
         file = "test"
