@@ -70,7 +70,7 @@ if not os.path.exists("../playerLinks.txt"):
 
 driver = None
 
-recordVideoFolder = r"D:\Fiver\Doing LOL Stream\yt copy\2023-10-31_17-39-29"
+recordVideoFolder = r"Z:\Gameplay"
 
 
 def moveVideo(sourceFolder, destFolder):
