@@ -13,15 +13,16 @@ from bs4 import BeautifulSoup
 
 
 class CreateThumbnail:
-    def __init__(self, data_scrapper, data: MatchData,new_folder_path) -> None:
+    def __init__(self, data_scrapper, data: MatchData, new_folder_path) -> None:
         self.scrapper = data_scrapper
         self.lol_data = data
         self.folder = new_folder_path
-        self.__thumb_path = os.path.join(self.folder,'thumbnail.png')
+        self.__thumb_path = os.path.join(self.folder, 'thumbnail.png')
         self.__replay_file_dir = os.path.abspath(r'.\media\replays')
         # file = os.listdir(self.__replay_file_dir)[0].split(".")[0]
         file = "test"
-        self.__static_thumb_path = os.path.join(os.path.abspath(r'.\media\AllThumbs'), f'{file}.png')
+        self.__static_thumb_path = os.path.join(
+            os.path.abspath(r'.\media\AllThumbs'), f'{file}.png')
         self.total = 100
         print_progress(1, self.total, prefix='Creating Thumbnail:')
         self.skins = {
@@ -169,7 +170,7 @@ class CreateThumbnail:
         oppIconImg = self.iconReplace(championTemp.replace(" ", ""))
         loserIcon = self.iconReplace(loser.replace(" ", ""))
         self.__create_html(
-            kda=self.lol_data['mvp']['kda'].split("/"),
+            date=self.lol_data['date'],
             imgUrl=imgUrl,
             mvp=self.lol_data['mvp']['name'],
             vs=self.lol_data['loser'],
@@ -202,9 +203,9 @@ class CreateThumbnail:
         self.scrapper.quit()
         return True
 
-    def __create_html(self, kda: str, mvp: str, vs: str, rank: str, patch: str, imgUrl: str, rankIcon: str, spellImg: list, opponentIcon: str, region, loserIcon):
+    def __create_html(self, date: str, mvp: str, vs: str, rank: str, patch: str, imgUrl: str, rankIcon: str, spellImg: list, opponentIcon: str, region, loserIcon):
         none_vars = []
-        if kda is None:
+        if date is None:
             none_vars.append('kda')
         if mvp is None:
             none_vars.append('mvp')
@@ -235,11 +236,10 @@ class CreateThumbnail:
         HTML = HTML.replace("regionLOL", region)
         HTML = HTML.replace("spellImg0LOL", spellImg[0])
         HTML = HTML.replace("spellImg1LOL", spellImg[1])
-        HTML = HTML.replace("spellImg2LOL", spellImg[0])
         HTML = HTML.replace("mvpLOL", mvp)
-        HTML = HTML.replace("kda0LOL", kda[0])
-        HTML = HTML.replace("kda1LOL", kda[1])
-        HTML = HTML.replace("kda2LOL", kda[2])
+        HTML = HTML.replace("kda0LOL", date)
+        # HTML = HTML.replace("kda1LOL", kda[1])
+        # HTML = HTML.replace("kda2LOL", kda[2])
 
         with open("./assets/thumbnail.html", "w", encoding='utf-8') as f:
             f.write(HTML)

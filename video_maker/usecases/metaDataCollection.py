@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from entities.match_data import MatchData, Player
 from selenium import webdriver
@@ -189,6 +190,7 @@ def getMetaData(driver,playerUrl,folder):
         loserTeam = "team2"
     match_data['mvp'] = match_data[playerTeam]['players'][playerIndex]
     match_data['loser'] = match_data[loserTeam]['players'][1]['champion']
+    match_data['date'] = str(datetime.now().strftime("%d/%m/%Y"))
     save(match_data,folder)
     return match_data
 def __get_mvp_data(match_data):

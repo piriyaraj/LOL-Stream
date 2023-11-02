@@ -27,3 +27,4 @@ class MatchData:
     team2: Team
     player_role: str
     player_index: str
+    date: str

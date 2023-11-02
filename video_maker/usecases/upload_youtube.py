@@ -47,8 +47,7 @@ class UploadYoutube:
         self.playlist_from_youtube = {}
         # self.__title = f"{match_data['mvp']['champion']} {match_data['player_role']} vs {match_data['loser']} - {match_data['region']} {match_data['mvp']['rank']} Patch "
 
-        self.__title = f"""LOL Gameplay {match_data['mvp']['champion']} ({match_data['mvp']['name']}) VS  {match_data['loser']} | Patch {match_data['patch']} | KDA {match_data['mvp']['kda'].replace(" ","")} ✅"""
-        
+        self.__title = f"""{match_data['mvp']['name']} {match_data['mvp']['champion']} VS {match_data['loser']} | FULL GAME | {match_data['date']}"""
         
 
         self.__description = f"""
