@@ -52,7 +52,7 @@ def videoUploader():
             print(f"Error processing folder '{folder_path}': {str(e)}")
 
         # Optionally remove the folder after processing
-        # removeFolder(folder_path)
+        removeFolder(folder_path)
 
 if __name__ == '__main__':
     # Create a folder inside the 'yt' directory
