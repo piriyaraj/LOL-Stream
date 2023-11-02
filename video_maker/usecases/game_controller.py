@@ -122,7 +122,7 @@ class ControlGamePlay:
                 return True  # Return True after clicking
             else:
                 time.sleep(10)  # Wait for a second before checking again
-                if count >= 4*60:
+                if count >= 2*60:
                     return False
                 count += 10
 
