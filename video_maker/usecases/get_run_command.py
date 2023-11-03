@@ -30,7 +30,8 @@ def is_game_already_played():
         gameId = data.split(".lol.pvp.net:80 ")[1].split('" "-UseRads')[0]
     except:
         return True
-    # print("check 0.1",playedGames)
+    print("   > played games: ", playedGames)
+    print("   > current game: ", gameId)
     if gameId in playedGames:
         return True
     else:

@@ -200,7 +200,6 @@ class CreateThumbnail:
             img.save(self.__static_thumb_path, quality=70)
         print_progress(100, self.total, prefix='Creating Thumbnail:')
 
-        self.scrapper.quit()
         return True
 
     def __create_html(self, date: str, mvp: str, vs: str, rank: str, patch: str, imgUrl: str, rankIcon: str, spellImg: list, opponentIcon: str, region, loserIcon):
