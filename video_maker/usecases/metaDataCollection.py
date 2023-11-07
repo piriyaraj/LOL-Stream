@@ -136,8 +136,9 @@ def getMetaData(driver,playerUrl,folder):
     match_data['region'] = playerUrl.split("/")[-3]
     match_data['team1']['result'] = "Blue"
     match_data['team2']['result'] = "Red"
-    patch = driver.find_element(by=By.XPATH, value='//*[@id="__next"]/header/div[3]/nav/button/span[2]').text
+    patch = driver.find_element(by=By.XPATH, value='//nav[@class="route-nav"]//span[2]').text
     match_data['patch'] = patch
+    # match_data['patch'] = '13.22'
     data = __create_team_blue(driver)
     # print(data)
     match_data['team1']['players'] = data
