@@ -190,7 +190,7 @@ def getMetaData(driver,playerUrl,folder):
     if playerTeam == "team1":
         loserTeam = "team2"
     match_data['mvp'] = match_data[playerTeam]['players'][playerIndex]
-    match_data['loser'] = match_data[loserTeam]['players'][1]['champion']
+    match_data['loser'] = match_data[loserTeam]['players'][playerIndex]['champion']
     match_data['date'] = str(datetime.now().strftime("%d/%m/%Y"))
     save(match_data,folder)
     return match_data
