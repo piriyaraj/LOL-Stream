@@ -121,7 +121,7 @@ def Run(playerLink):
         playerLink, playerName, new_folder_path, driver, playerTeam, playerIndex, no_of_played_game)
     # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None" and playerTeam != "Not found":
-        time.sleep(1*60)
+        time.sleep(1*90)
 
         gameController = ControlGamePlay(playerTeam, playerIndex)
         out = gameController.control()
