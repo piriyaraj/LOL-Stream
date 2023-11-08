@@ -40,7 +40,7 @@ class UploadYoutube:
         For more information about the client_secrets.json file format, please visit:
         https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
         """
-        self.__thumb_file = os.path.abspath(r'.\media\thumb\thumb.png')
+        self.__thumb_file = thumbnail_file
         self.__file = video_file_name
         self.__get_authenticated_service()
         self.playlist_name_list = [match_data['mvp']['champion'],"Region "+match_data['region'],"Patch "+match_data['patch']]
