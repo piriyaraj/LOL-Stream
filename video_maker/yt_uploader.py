@@ -8,6 +8,7 @@ base = os.path.abspath('yt')
 videoFolder = os.listdir(base)
 recordVideoFolder = r"Z:\Gameplay"
 
+
 def removeFolder(folder):
     try:
         # Check if the folder exists
@@ -19,6 +20,7 @@ def removeFolder(folder):
             print(f"Folder '{folder}' does not exist.")
     except Exception as e:
         print(f"Error: {str(e)}")
+
 
 def moveVideo(sourceFolder, destFolder):
     try:
@@ -35,12 +37,12 @@ def moveVideo(sourceFolder, destFolder):
         files_to_move = os.listdir(sourceFolder)
 
         # Move each file to the destination folder
-        for file in files_to_move:
-            source_path = os.path.join(sourceFolder, file)
-            dest_path = os.path.join(destFolder, file)
-            shutil.move(source_path, dest_path)
-            print(f"Moved '{file}' to '{destFolder}'")
-            # os.remove(source_path)
+        # for file in files_to_move:
+        file = files_to_move[0]
+        source_path = os.path.join(sourceFolder, file)
+        dest_path = os.path.join(destFolder, file)
+        shutil.move(source_path, dest_path)
+        print(f"Moved '{file}' to '{destFolder}'")
 
     except Exception as e:
         if "being used by another process:" in str(e):
@@ -50,21 +52,20 @@ def moveVideo(sourceFolder, destFolder):
             print(f"Error: {str(e)}")
 
 
-
 def videoUploader(new_folder_path):
     moveVideo(recordVideoFolder, new_folder_path)
     for uploadPath in videoFolder:
         folder_path = os.path.join(base, uploadPath)
-        
+
         if not os.path.isdir(folder_path):
             continue  # Skip if it's not a directory
-        
+
         all_files = os.listdir(folder_path)
-        
+
         if len(all_files) == 0:
             removeFolder(folder_path)
             continue
-        
+
         video_files = [file for file in all_files if file.endswith('.mkv')]
         if len(video_files) == 0:
             removeFolder(folder_path)
@@ -72,21 +73,22 @@ def videoUploader(new_folder_path):
         thumbnail = os.path.join(folder_path, 'thumbnail.png')
         matchData_path = os.path.join(folder_path, 'match_data.json')
         videoPath = os.path.join(folder_path, video_files[0])
-        
+
         print("Thumbnail:", thumbnail)
         print("Match Data:", matchData_path)
         print("Video Path:", videoPath)
-        
+
         try:
-            with open(matchData_path, 'r',encoding='utf-8') as matchData:
+            with open(matchData_path, 'r', encoding='utf-8') as matchData:
                 match_data = json.load(matchData)
-                uploader = UploadYoutube(match_data, videoPath,thumbnail)
+                uploader = UploadYoutube(match_data, videoPath, thumbnail)
                 uploader.upload_video()
         except Exception as e:
             print(f"Error processing folder '{folder_path}': {str(e)}")
 
         # Optionally remove the folder after processing
         removeFolder(folder_path)
+
 
 if __name__ == '__main__':
     # Create a folder inside the 'yt' directory
