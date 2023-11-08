@@ -38,7 +38,7 @@ def moveVideo(sourceFolder, destFolder):
 
         # Move each file to the destination folder
         # for file in files_to_move:
-        file = files_to_move[0]
+        file = files_to_move[-1]
         source_path = os.path.join(sourceFolder, file)
         dest_path = os.path.join(destFolder, file)
         shutil.move(source_path, dest_path)
