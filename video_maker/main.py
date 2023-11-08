@@ -20,8 +20,8 @@ if not os.path.exists("media/thumb"):
 if not os.path.exists("yt"):
     os.makedirs("yt")
 
-def run_video_uploader():
-    yt_uploader.videoUploader()
+def run_video_uploader(new_folder_path):
+    yt_uploader.videoUploader(new_folder_path)
 
 
 def removeFolder(folder):
@@ -130,8 +130,7 @@ def Run(playerLink):
             removeFolder(new_folder_path)
             changePlayedGame()
         else:
-            moveVideo(recordVideoFolder, new_folder_path)
-            uploader_process = multiprocessing.Process(target=run_video_uploader)
+            uploader_process = multiprocessing.Process(target=run_video_uploader, args=(new_folder_path,))
             uploader_process.start()
             
     elif playerTeam == "Not found":

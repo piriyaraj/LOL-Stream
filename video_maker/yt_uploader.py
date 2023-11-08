@@ -1,10 +1,12 @@
 import json
 import os
 import shutil
+import time
 from usecases.upload_youtube import UploadYoutube
 
 base = os.path.abspath('yt')
 videoFolder = os.listdir(base)
+recordVideoFolder = r"Z:\Gameplay"
 
 def removeFolder(folder):
     try:
@@ -18,7 +20,39 @@ def removeFolder(folder):
     except Exception as e:
         print(f"Error: {str(e)}")
 
-def videoUploader():
+def moveVideo(sourceFolder, destFolder):
+    try:
+        # Check if the source folder exists
+        if not os.path.exists(sourceFolder):
+            print(f"Source folder '{sourceFolder}' does not exist.")
+            return
+
+        # Check if the destination folder exists, and if not, create it
+        if not os.path.exists(destFolder):
+            os.makedirs(destFolder)
+
+        # Get a list of all files in the source folder
+        files_to_move = os.listdir(sourceFolder)
+
+        # Move each file to the destination folder
+        for file in files_to_move:
+            source_path = os.path.join(sourceFolder, file)
+            dest_path = os.path.join(destFolder, file)
+            shutil.move(source_path, dest_path)
+            print(f"Moved '{file}' to '{destFolder}'")
+            # os.remove(source_path)
+
+    except Exception as e:
+        if "being used by another process:" in str(e):
+            time.sleep(10)
+            moveVideo(sourceFolder, destFolder)
+        else:
+            print(f"Error: {str(e)}")
+
+
+
+def videoUploader(new_folder_path):
+    moveVideo(recordVideoFolder, new_folder_path)
     for uploadPath in videoFolder:
         folder_path = os.path.join(base, uploadPath)
         
