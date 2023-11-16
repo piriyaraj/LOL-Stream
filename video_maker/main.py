@@ -13,6 +13,10 @@ import time
 import pygetwindow as gw
 import yt_uploader
 from usecases.get_run_command import changePlayedGame
+
+import logging
+logging.basicConfig(filename='../LoL stream.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 if not os.path.exists("media/AllThumbs"):
     os.makedirs("media/AllThumbs")
 if not os.path.exists("media/thumb"):
@@ -31,11 +35,13 @@ def removeFolder(folder):
             # Use shutil.rmtree to remove the folder and its contents
             shutil.rmtree(folder)
             print(f"Folder '{folder}' and its contents have been removed.")
+            logging.info(f"Main:(removeFolder) Folder '{folder}' and its contents have been removed.")
         else:
             print(f"Folder '{folder}' does not exist.")
+            logging.warning(f"Main:(removeFolder) Folder '{folder}' does not exist.")
     except Exception as e:
         print(f"Error: {str(e)}")
-
+        logging.error(f"Main:(removeFolder) Error: {str(e)}")
 
 def closeGame():
     target_window_title = "league of legends (TM) client"
@@ -46,18 +52,21 @@ def closeGame():
     if open_windows:
         while True:
             print(f"{target_window_title} is open.")
+            logging.info(f"Main:(closeGame) {target_window_title} is open.")
             # Close the window
 
             open_windows = gw.getWindowsWithTitle(target_window_title)
             if open_windows:
                 open_windows[0].close()
                 print(f"{target_window_title} has been closed.")
+                logging.info(f"Main:(closeGame){target_window_title} has been closed.")
                 time.sleep(5)
                 continue
             else:
                 break
     else:
         print(f"{target_window_title} is not open.")
+        logging.info(f"Main:(closeGame) {target_window_title} is not open.")
 
 
 if not os.path.exists("media/gameplay"):
@@ -105,7 +114,7 @@ def Run(playerLink):
     # playerLink = "https://www.op.gg/summoners/kr/쪼잔하게 굴지마/ingame"
     playerName = playerLink.split("/")[-2]
     print(f"====> {playerName} <====")
-
+    logging.info(f"Main(Run) ====> {playerName} <====")
     playerTeam = None
     playerIndex = None
     no_of_played_game = None
@@ -157,3 +166,4 @@ if __name__ == "__main__":
         except Exception as e:
             count -= 1
             print("Error:", str(e))
+            logging.error("Main(__name__) Error:", str(e))

@@ -11,6 +11,8 @@ import pydirectinput
 
 from usecases.metaDataCollection import getMetaData
 from usecases.create_thumbnail import CreateThumbnail
+import logging
+logging.basicConfig(filename='../LoL stream.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # get the player name and get the live player name
 playedGames = []
@@ -22,7 +24,7 @@ def changePlayedGame():
 def is_game_already_played():
     file = os.listdir(os.path.abspath(r'.\media\gameplay'))[0]
     print("  -gamePlay: " + file)
-
+    logging.info(f"  -gamePlay: {file}")
     with open(os.path.join(os.path.abspath(r'.\media\gameplay'), file), 'r') as runnerfile:
         data = runnerfile.read()
     # print("check 0")
@@ -32,6 +34,8 @@ def is_game_already_played():
         return True
     print("   > played games: ", playedGames)
     print("   > current game: ", gameId)
+    logging.info(f"   > played games: {playedGames}")
+    logging.info(f"   > current game: {gameId}")
     if gameId in playedGames:
         return True
     else:
@@ -53,6 +57,8 @@ def get_no_played_game(team, index, driver):
             break
     rank = rand_text.text.split("(")[1].split()[0]
     print("  -Played: " + rank)
+    logging.info(f"   > -Played:: {rank}")
+    
     return rank
 
 
@@ -103,17 +109,20 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
                         team, index, driver)
                     if no_of_played_game == updated_no_played_game:
                         print("Already played game Found")
+                        logging.info(f"Already played game Found")
                         # press_update_button(driver)
                         time.sleep(5)
                         driver.get(player_url)
                         time.sleep(5)
                         continue
                 print("New live game found")
+                logging.info(f"New live game found")
 
                 removeGameplay()
                 break
             except Exception as e:
                 print("Live game not found")
+                logging.info(f"Live game not found")
                 # press_update_button(driver)
                 time.sleep(1)
                 return "Not found", 0, driver, "None"
@@ -153,6 +162,8 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
 
         print("  -selected Team:", playerTeam)
         print("  -selected Index:", playerIndex+1)
+        logging.info(f"   -selected Team: {playerTeam}")
+        logging.info(f"   -selected Index: {playerIndex+1}")
         # if team is None :
         #     index = int(playerIndex)+1
         #     team = playerTeam
@@ -165,6 +176,8 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
         # print("check 1")
         if status:
             print("  -already_played")
+            logging.info(f"  -already_played")
+            
             return "Not found", 0, driver, "None"
         try:
             button = driver.find_element(By.XPATH, "//button[@class='close']")
@@ -180,6 +193,7 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
 
     except Exception as e:
         print(f"Error(scrape_lolpros_player): {e}")
+        logging.error(f"Error(scrape_lolpros_player): {e}")
         if playedGames:
             playedGames.pop()
         driver.quit()

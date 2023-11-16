@@ -1,3 +1,4 @@
+import logging
 import json
 import os
 import shutil
@@ -7,6 +8,8 @@ from usecases.upload_youtube import UploadYoutube
 base = os.path.abspath('yt')
 videoFolder = os.listdir(base)
 recordVideoFolder = r"Z:\Gameplay"
+logging.basicConfig(filename='../LoL stream.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def removeFolder(folder):
@@ -16,10 +19,15 @@ def removeFolder(folder):
             # Use shutil.rmtree to remove the folder and its contents
             shutil.rmtree(folder)
             print(f"Folder '{folder}' and its contents have been removed.")
+            logging.info(
+                f"yt_uploader(removeFolder): Folder '{folder}' and its contents have been removed.")
         else:
             print(f"Folder '{folder}' does not exist.")
+            logging.warning(
+                f"yt_uploader(removeFolder): Folder '{folder}' does not exist.")
     except Exception as e:
         print(f"Error: {str(e)}")
+        logging.error(f"yt_uploader(removeFolder): Error: {str(e)}")
 
 
 def moveVideo(sourceFolder, destFolder):
@@ -27,6 +35,8 @@ def moveVideo(sourceFolder, destFolder):
         # Check if the source folder exists
         if not os.path.exists(sourceFolder):
             print(f"Source folder '{sourceFolder}' does not exist.")
+            logging.warning(
+                f"yt_uploader(moveVideo): Source folder '{sourceFolder}' does not exist.")
             return
 
         # Check if the destination folder exists, and if not, create it
@@ -43,6 +53,8 @@ def moveVideo(sourceFolder, destFolder):
         dest_path = os.path.join(destFolder, file)
         shutil.move(source_path, dest_path)
         print(f"Moved '{file}' to '{destFolder}'")
+        logging.info(
+            f"yt_uploader(moveVideo): Moved '{file}' to '{destFolder}'")
 
     except Exception as e:
         if "being used by another process:" in str(e):
@@ -78,6 +90,11 @@ def videoUploader(new_folder_path):
         print("Match Data:", matchData_path)
         print("Video Path:", videoPath)
 
+        logging.info("yt_uploader(videoUploader): Thumbnail: %s", thumbnail)
+        logging.info("yt_uploader(videoUploader): Match Data: %s",
+                     matchData_path)
+        logging.info("yt_uploader(videoUploader): Video Path: %s", videoPath)
+
         try:
             with open(matchData_path, 'r', encoding='utf-8') as matchData:
                 match_data = json.load(matchData)
@@ -85,6 +102,8 @@ def videoUploader(new_folder_path):
                 uploader.upload_video()
         except Exception as e:
             print(f"Error processing folder '{folder_path}': {str(e)}")
+            logging.error(
+                f"yt_uploader(videoUploader): Error processing folder '{folder_path}': {str(e)}")
 
         # Optionally remove the folder after processing
         removeFolder(folder_path)
