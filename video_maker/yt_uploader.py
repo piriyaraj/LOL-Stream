@@ -29,8 +29,9 @@ def removeFolder(folder):
         print(f"Error: {str(e)}")
         logging.error(f"yt_uploader(removeFolder): Error: {str(e)}")
 
-
+count = 1
 def moveVideo(sourceFolder, destFolder):
+    global count
     try:
         # Check if the source folder exists
         if not os.path.exists(sourceFolder):
@@ -59,7 +60,9 @@ def moveVideo(sourceFolder, destFolder):
     except Exception as e:
         if "being used by another process:" in str(e):
             time.sleep(10)
-            moveVideo(sourceFolder, destFolder)
+            if count <=3:
+                moveVideo(sourceFolder, destFolder)
+                count += 1
         else:
             print(f"Error: {str(e)}")
 
