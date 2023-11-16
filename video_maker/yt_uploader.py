@@ -134,5 +134,5 @@ if __name__ == '__main__':
         test_video_file.write('Test video content')
 
     # Call the videoUploader function
-    videoUploader()
+    videoUploader(r"yt\test_folder")
     pass
