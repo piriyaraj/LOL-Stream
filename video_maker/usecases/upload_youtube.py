@@ -103,7 +103,7 @@ class UploadYoutube:
         return {
             "file": self.__file,
             "title": self.__title,
-            # "description": self.__description,
+            "description": self.__description,
             "category": self.__category,
             "keywords": self.__keywords,
             "privacyStatus": self.__VALID_PRIVACY_STATUSES[0]
@@ -137,7 +137,7 @@ class UploadYoutube:
         body = dict(
             snippet=dict(
                 title=options['title'],
-                description=options['description'],
+                # description=options['description'],
                 tags=tags,
                 categoryId=options['category']
             ),

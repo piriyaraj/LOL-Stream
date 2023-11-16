@@ -104,7 +104,7 @@ def videoUploader(new_folder_path):
                 uploader = UploadYoutube(match_data, videoPath, thumbnail)
                 uploader.upload_video()
         except Exception as e:
-            print(f"Error processing folder '{folder_path}': {str(e)}")
+            print(f"yt_uploader(videoUploader): {str(e)}")
             logging.error(
                 f"yt_uploader(videoUploader): Error processing folder '{folder_path}': {str(e)}")
 
