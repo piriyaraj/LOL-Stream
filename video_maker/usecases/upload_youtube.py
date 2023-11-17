@@ -45,31 +45,36 @@ class UploadYoutube:
         self.__get_authenticated_service()
         self.playlist_name_list = [match_data['mvp']['champion'],"Region "+match_data['region'],"Patch "+match_data['patch']]
         self.playlist_from_youtube = {}
-        # self.__title = f"{match_data['mvp']['champion']} {match_data['player_role']} vs {match_data['loser']} - {match_data['region']} {match_data['mvp']['rank']} Patch "
+        # self.__title = f"{match_data['mvp']['champion']} | {match_data['player_role']} vs {match_data['loser']} - {match_data['region']} {match_data['mvp']['rank']} Patch "
 
-        self.__title = f"""{match_data['mvp']['name']} {match_data['mvp']['champion']} VS {match_data['loser']} | FULL GAME | {match_data['date']}"""
+        self.__title = f"""{match_data['mvp']['name']} | {match_data['mvp']['champion']} VS {match_data['loser']} | FULL GAME | {match_data['date']}"""
         
 
-        self.__description = f"""
-        This is the match for {match_data['mvp']['champion']} in the Mid role. The match took place in the {match_data['region']} region. The patch used was {match_data['patch']}.
+        # self.__description = f"""
+        # This is the match for {match_data['mvp']['champion']} in the Mid role. The match took place in the {match_data['region']} region. The patch used was {match_data['patch']}.
 
-        The match consisted of two teams. In Team 1, the players and their respective champions were:
-            - {match_data['team1']['players'][0]['name']} playing {match_data['team1']['players'][0]['champion']} with a KDA of {match_data['team1']['players'][0]['kda']} and ranked as {match_data['team1']['players'][0]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][0]['spell'][0])}, {match_data['team1']['players'][0]['spell'][1]}.
-            - {match_data['team1']['players'][1]['name']} playing {match_data['team1']['players'][1]['champion']} with a KDA of {match_data['team1']['players'][1]['kda']} and ranked as {match_data['team1']['players'][1]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][1]['spell'][0])}, {match_data['team1']['players'][1]['spell'][1]}.
-            - {match_data['team1']['players'][2]['name']} playing {match_data['team1']['players'][2]['champion']} with a KDA of {match_data['team1']['players'][2]['kda']} and ranked as {match_data['team1']['players'][2]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][2]['spell'][0])}, {match_data['team1']['players'][2]['spell'][1]}.
-            - {match_data['team1']['players'][3]['name']} playing {match_data['team1']['players'][3]['champion']} with a KDA of {match_data['team1']['players'][3]['kda']} and ranked as {match_data['team1']['players'][3]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][3]['spell'][0])}, {match_data['team1']['players'][3]['spell'][1]}.
-            - {match_data['team1']['players'][4]['name']} playing {match_data['team1']['players'][4]['champion']} with a KDA of {match_data['team1']['players'][4]['kda']} and ranked as {match_data['team1']['players'][4]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][4]['spell'][0])}, {match_data['team1']['players'][4]['spell'][1]}.
+        # The match consisted of two teams. In Team 1, the players and their respective champions were:
+        #     - {match_data['team1']['players'][0]['name']} playing {match_data['team1']['players'][0]['champion']} with a KDA of {match_data['team1']['players'][0]['kda']} and ranked as {match_data['team1']['players'][0]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][0]['spell'][0])}, {match_data['team1']['players'][0]['spell'][1]}.
+        #     - {match_data['team1']['players'][1]['name']} playing {match_data['team1']['players'][1]['champion']} with a KDA of {match_data['team1']['players'][1]['kda']} and ranked as {match_data['team1']['players'][1]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][1]['spell'][0])}, {match_data['team1']['players'][1]['spell'][1]}.
+        #     - {match_data['team1']['players'][2]['name']} playing {match_data['team1']['players'][2]['champion']} with a KDA of {match_data['team1']['players'][2]['kda']} and ranked as {match_data['team1']['players'][2]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][2]['spell'][0])}, {match_data['team1']['players'][2]['spell'][1]}.
+        #     - {match_data['team1']['players'][3]['name']} playing {match_data['team1']['players'][3]['champion']} with a KDA of {match_data['team1']['players'][3]['kda']} and ranked as {match_data['team1']['players'][3]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][3]['spell'][0])}, {match_data['team1']['players'][3]['spell'][1]}.
+        #     - {match_data['team1']['players'][4]['name']} playing {match_data['team1']['players'][4]['champion']} with a KDA of {match_data['team1']['players'][4]['kda']} and ranked as {match_data['team1']['players'][4]['rank']}. Their summoner spells were {self.extract_spell_name(match_data['team1']['players'][4]['spell'][0])}, {match_data['team1']['players'][4]['spell'][1]}.
 
-        The Most Valuable Player (MVP) of this match was {match_data['mvp']['name']} playing {match_data['mvp']['champion']} with a KDA of {match_data['mvp']['kda']} and ranked as {match_data['mvp']['rank']}. Their summoner spells were {self.extract_spell_name(match_data['mvp']['spell'][0])}, {match_data['mvp']['spell'][1]}.
+        # The Most Valuable Player (MVP) of this match was {match_data['mvp']['name']} playing {match_data['mvp']['champion']} with a KDA of {match_data['mvp']['kda']} and ranked as {match_data['mvp']['rank']}. Their summoner spells were {self.extract_spell_name(match_data['mvp']['spell'][0])}, {match_data['mvp']['spell'][1]}.
 
-        The match resulted in a {match_data['team1']['result']} for Team 1.
+        # The match resulted in a {match_data['team1']['result']} for Team 1.
         
-        league of legends new account, lol gameplay, league of legends videos, play league of legends, riot games lol, league of legends new season, twitch league of legends, riot games twitch, twitch lol, twitch tv league of legends, best jungler lol, pants are dragon lol, league of legends jungle, jungle guide, season jungle guide, best jungler for season, how to climb league of legends, pants are dragon season, pants are dragon jungle guide, pants are dragon rank 1, challenger to rank 1, pants are dragon rage, season league of legends, 
+        # league of legends new account, lol gameplay, league of legends videos, play league of legends, riot games lol, league of legends new season, twitch league of legends, riot games twitch, twitch lol, twitch tv league of legends, best jungler lol, pants are dragon lol, league of legends jungle, jungle guide, season jungle guide, best jungler for season, how to climb league of legends, pants are dragon season, pants are dragon jungle guide, pants are dragon rank 1, challenger to rank 1, pants are dragon rage, season league of legends, 
         
-        #LeagueOfLegends, #LoL, #SummonerRift, #Champions, #LeagueCommunity, #RankedGames, #ProPlay, #LCS, #Worlds, #Esports, #PatchNotes, #Gaming, #TeamfightTactics, #ARAM, #Streamer, #Pentakill, #Skins, #Lore, #Balance, #LeagueArt
+        # #LeagueOfLegends, #LoL, #SummonerRift, #Champions, #LeagueCommunity, #RankedGames, #ProPlay, #LCS, #Worlds, #Esports, #PatchNotes, #Gaming, #TeamfightTactics, #ARAM, #Streamer, #Pentakill, #Skins, #Lore, #Balance, #LeagueArt
         
+        # """
+        self.__description = """
+        Stream: https://www.twitch.tv/spectate_baus
+        FULL GAME SPECTATOR MODE
+
+        Player: Thebausffs
         """
-        
         self.__category = "20"
         self.__keywords = [f"{match_data['mvp']['champion']}", "challenger",
                            "leagueoflegends", "replay", "high kda",
@@ -137,7 +142,7 @@ class UploadYoutube:
         body = dict(
             snippet=dict(
                 title=options['title'],
-                # description=options['description'],
+                description=options['description'],
                 tags=tags,
                 categoryId=options['category']
             ),
