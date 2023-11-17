@@ -123,18 +123,20 @@ class CreateThumbnail:
         #     champion=="Kaisa"
         rank = self.lol_data['mvp']['rank']
         ranks = {
-            "Iron": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/1.png",
-            "Bronze": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/2.png",
-            "Silver": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/3.png",
-            "Gold": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/4.png",
-            "Platinum": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/5.png",
-            "Diamond": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/6.png",
-            "Master": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/7.png",
-            "GrandMaster": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/8.png",
-            "Challenger": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/9.png"
+            "iron": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/1.png",
+            "bronze": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/2.png",
+            "silver": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/3.png",
+            "gold": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/4.png",
+            "platinum": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/5.png",
+            "emerald": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/6.png",
+            "diamond": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/7.png",
+            "master": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/8.png",
+            "grandMaster": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/9.png",
+            "challenger": "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/10.png"
         }
         print_progress(12, self.total, prefix='Creating Thumbnail:')
-        rankIcon = ranks.get(rank)
+        # print(rank)
+        rankIcon = ranks.get(rank.lower())
         if (rankIcon is None):
             rankIcon = "https://lolg-cdn.porofessor.gg/img/s/league-icons-v3/160/9.png"
         spellImgs = os.listdir("assets/img/spell")
