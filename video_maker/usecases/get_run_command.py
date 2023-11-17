@@ -179,6 +179,8 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
             logging.info(f"  -already_played")
             
             return "Not found", 0, driver, "None"
+        logging.info(f"   >New game found")
+        
         try:
             button = driver.find_element(By.XPATH, "//button[@class='close']")
             button.click()
@@ -187,8 +189,10 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
             print("Error(click download):", e)
         # press_update_button(driver)
         data = getMetaData(driver,playerLink,new_folder_path)
+        logging.info(f"   >Got MetaData")
         thumbCreation = CreateThumbnail(driver,data,new_folder_path)
         thumbCreation.create_thumbnail()
+        logging.info(f"   >Created thumbnail")
         return playerTeam, playerIndex, driver, updated_no_played_game
 
     except Exception as e:
