@@ -107,9 +107,9 @@ def moveVideo(sourceFolder, destFolder):
     except Exception as e:
         print(f"Error: {str(e)}")
 
-
+restartFlag = False
 def Run(playerLink):
-    global driver
+    global driver, restartFlag
     playerLink = unquote(playerLink, encoding='utf-8')
     # playerLink = "https://www.op.gg/summoners/kr/쪼잔하게 굴지마/ingame"
     playerName = playerLink.split("/")[-2]
@@ -130,7 +130,10 @@ def Run(playerLink):
         playerLink, playerName, new_folder_path, driver, playerTeam, playerIndex, no_of_played_game)
     # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None" and playerTeam != "Not found":
-        time.sleep(1*90)
+        if not(restartFlag):
+            time.sleep(1*90)
+        else:
+            restartFlag = False
 
         gameController = ControlGamePlay(playerTeam, playerIndex)
         out = gameController.control()
@@ -138,6 +141,7 @@ def Run(playerLink):
         if out == "crashed":
             removeFolder(new_folder_path)
             changePlayedGame()
+            restartFlag = True
         else:
             uploader_process = multiprocessing.Process(target=run_video_uploader, args=(new_folder_path,))
             uploader_process.start()
