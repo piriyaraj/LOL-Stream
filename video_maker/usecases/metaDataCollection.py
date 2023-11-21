@@ -21,6 +21,8 @@ match_data: MatchData = {
 }
 playerName = None
 def __create_player(name: str, kda: str, rank: str, champion: str, spell=[]) -> Player:
+    # if len(name.split("#")>1):
+    name = name.split("#")[0]
     return {
         "name": name,
         "kda": kda,
