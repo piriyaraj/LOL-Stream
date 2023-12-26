@@ -131,7 +131,7 @@ def Run(playerLink):
     # playerTeam, playerIndex, driver, no_of_played_game = "Red",1,driver, 3
     if playerTeam != "None" and playerTeam != "Not found":
         if not(restartFlag):
-            time.sleep(1*90)
+            time.sleep(100)
         else:
             restartFlag = False
 

@@ -72,7 +72,6 @@ class UploadYoutube:
         self.__description = """
         Stream: https://www.twitch.tv/spectate_baus
         FULL GAME SPECTATOR MODE
-
         Player: Thebausffs
         """
         self.__category = "20"
