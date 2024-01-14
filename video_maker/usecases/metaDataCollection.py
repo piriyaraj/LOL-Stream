@@ -149,7 +149,7 @@ def getMetaData(driver,playerUrl,folder):
     if len(playerName)>=1:
         playerName = playerName[0]
         
-    print("==================>",playerName)
+    # print("==================>",playerName)
     match_data['region'] = playerUrl.split("/")[-3]
     match_data['team1']['result'] = "Blue"
     match_data['team2']['result'] = "Red"
