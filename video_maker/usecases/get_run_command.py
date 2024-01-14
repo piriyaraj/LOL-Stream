@@ -143,13 +143,15 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
             By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[4]/a")
         for i in range(len(team_red)):
             player_name = team_red[i].text
+            player_name = player_name.split("#")[0]
+            # print(playrName.lower(),player_name.lower().strip())
             if playrName.lower() in player_name.lower().strip():
                 playerTeam = "Red"
                 playerIndex = int(i)
                 # press_update_button(driver)
                 isFound = True
                 # time.sleep(10)
-
+        # print("=======> CP1")
         # get red team
         if not isFound:
             for i in range(len(team_blue)):
@@ -159,6 +161,8 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
                     playerIndex = int(i)
                     # press_update_button(driver)
                     # time.sleep(10)
+
+        print("=======> CP2")
 
         print("  -selected Team:", playerTeam)
         print("  -selected Index:", playerIndex+1)

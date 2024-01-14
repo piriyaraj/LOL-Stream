@@ -112,7 +112,9 @@ def Run(playerLink):
     global driver, restartFlag
     playerLink = unquote(playerLink, encoding='utf-8')
     # playerLink = "https://www.op.gg/summoners/kr/쪼잔하게 굴지마/ingame"
-    playerName = playerLink.split("/")[-2]
+    playerName = playerLink.split("/")[-2].split('-')
+    if len(playerName)>=1:
+        playerName = playerName[0]
     print(f"====> {playerName} <====")
     logging.info(f"Main(Run) ====> {playerName} <====")
     playerTeam = None
