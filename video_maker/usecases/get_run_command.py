@@ -194,7 +194,7 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
         # press_update_button(driver)
         data = getMetaData(driver,playerLink,new_folder_path)
         logging.info(f"   >Got MetaData")
-        print(f"   >Got MetaData")
+        print(f"   > Got MetaData")
         thumbCreation = CreateThumbnail(driver,data,new_folder_path)
         thumbCreation.create_thumbnail()
         logging.info(f"   >Created thumbnail")
