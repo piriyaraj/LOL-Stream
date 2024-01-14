@@ -38,8 +38,9 @@ def __create_team_red(driver) -> list[Player]:
     redPlayerNames = []
 
     for i in range(len(team_red_names)):
-        player_name = team_red_names[i].text
+        player_name = team_red_names[i].text.split("#")[0]
         redPlayerNames.append(player_name)
+    print(redPlayerNames)
     
     redPlayerKDA = []
     team_red_kda = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[9]")
@@ -50,17 +51,20 @@ def __create_team_red(driver) -> list[Player]:
             player_kda = "-/-/-"
         redPlayerKDA.append(player_kda)
     
+    # print("  ===== cp1")
     redPlayerRank = []
     team_red_rank = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[5]//img")
     for i in range(len(team_red_rank)):
         player_rank = team_red_rank[i].get_attribute("alt")
         redPlayerRank.append(player_rank)
+    # print("  ===== cp2")
     
     redPlayerChampion =[]
     team_red_champion = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[1]//img")
     for i in range(len(team_red_champion)):
         player_champion = team_red_champion[i].get_attribute("alt")
         redPlayerChampion.append(player_champion)
+    # print("  ===== cp3")
     
     redPlayerSpell = []
     team_red_spell = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[2]")
@@ -69,9 +73,14 @@ def __create_team_red(driver) -> list[Player]:
         li.append(driver.find_element(By.XPATH, f"//*[@id='content-container']/div/table[2]/tbody/tr[{i+1}]/td[2]/div[1]//img").get_attribute("alt"))
         li.append(driver.find_element(By.XPATH, f"//*[@id='content-container']/div/table[2]/tbody/tr[{i+1}]/td[2]/div[2]//img").get_attribute("alt"))
         redPlayerSpell.append(li)
-        
+
+    # print("  ===== cp4")
+    # for i in range(len(redPlayerKDA)):
+    #     print(redPlayerNames[i],":",redPlayerKDA[i],":",redPlayerChampion[i],":",redPlayerSpell[i])
     team_one.append(__create_player(
         name=redPlayerNames[0], kda=redPlayerKDA[0], rank=redPlayerRank[0], champion=redPlayerChampion[0], spell=redPlayerSpell[0]))
+    # print("  ===== cp5")
+    
     team_one.append(__create_player(
         name=redPlayerNames[1], kda=redPlayerKDA[1], rank=redPlayerRank[1], champion=redPlayerChampion[1], spell=redPlayerSpell[1]))
     team_one.append(__create_player(
@@ -80,6 +89,8 @@ def __create_team_red(driver) -> list[Player]:
         name=redPlayerNames[3], kda=redPlayerKDA[3], rank=redPlayerRank[3], champion=redPlayerChampion[3], spell=redPlayerSpell[3]))
     team_one.append(__create_player(
         name=redPlayerNames[4], kda=redPlayerKDA[4], rank=redPlayerRank[4], champion=redPlayerChampion[4], spell=redPlayerSpell[4]))
+    # print("  ===== cp6")
+    
     return team_one
 
 def __create_team_blue(driver) -> list[Player]:
@@ -89,9 +100,9 @@ def __create_team_blue(driver) -> list[Player]:
     redPlayerNames = []
     redPlayerKDA = []
     for i in range(len(team_red_names)):
-        player_name = team_red_names[i].text
+        player_name = team_red_names[i].text.split("#")[0]
         redPlayerNames.append(player_name)
-    
+    # print(redPlayerNames)
     redPlayerKDA = []
     team_red_kda = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[1]/tbody/tr/td[9]")
     for i in range(len(team_red_kda)):
@@ -134,7 +145,11 @@ def __create_team_blue(driver) -> list[Player]:
     return team_one
 
 def getMetaData(driver,playerUrl,folder):
-    playerName = playerUrl.split("/")[-2]
+    playerName = playerUrl.split("/")[-2].split('-')
+    if len(playerName)>=1:
+        playerName = playerName[0]
+        
+    print("==================>",playerName)
     match_data['region'] = playerUrl.split("/")[-3]
     match_data['team1']['result'] = "Blue"
     match_data['team2']['result'] = "Red"
@@ -146,7 +161,7 @@ def getMetaData(driver,playerUrl,folder):
     match_data['team1']['players'] = data
     # print("Got blue team")
     match_data['team2']['players'] = __create_team_red(driver)
-    # print("Got blue team")
+    print("Got blue team")
     # mvp_data = __get_mvp_data(match_data)
     # match_data['mvp'] = match_data[mvp_data['team']]['players'][mvp_data['player_index']]
     # match_data['loser'] = match_data[mvp_data['loser_team']
@@ -196,6 +211,7 @@ def getMetaData(driver,playerUrl,folder):
     match_data['date'] = str(datetime.now().strftime("%d/%m/%Y"))
     save(match_data,folder)
     return match_data
+
 def __get_mvp_data(match_data):
     team = ''
     kdas = []

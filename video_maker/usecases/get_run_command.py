@@ -162,7 +162,7 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
                     # press_update_button(driver)
                     # time.sleep(10)
 
-        print("=======> CP2")
+        # print("=======> CP2")
 
         print("  -selected Team:", playerTeam)
         print("  -selected Index:", playerIndex+1)
@@ -177,7 +177,7 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
         time.sleep(10)
         # click close button
         status = is_game_already_played()
-        # print("check 1")
+        # print("=============== check 1")
         if status:
             print("  -already_played")
             logging.info(f"  -already_played")
@@ -194,6 +194,7 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
         # press_update_button(driver)
         data = getMetaData(driver,playerLink,new_folder_path)
         logging.info(f"   >Got MetaData")
+        print(f"   >Got MetaData")
         thumbCreation = CreateThumbnail(driver,data,new_folder_path)
         thumbCreation.create_thumbnail()
         logging.info(f"   >Created thumbnail")
