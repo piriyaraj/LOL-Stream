@@ -40,7 +40,7 @@ def __create_team_red(driver) -> list[Player]:
     for i in range(len(team_red_names)):
         player_name = team_red_names[i].text.split("#")[0]
         redPlayerNames.append(player_name)
-    print(redPlayerNames)
+    # print(redPlayerNames)
     
     redPlayerKDA = []
     team_red_kda = driver.find_elements(By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[9]")
