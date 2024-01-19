@@ -29,8 +29,8 @@ def is_game_already_played():
         data = runnerfile.read()
     # print("check 0")
     try:
-        gameId = data.split(".lol.pvp.net:80 ")[1].split('" "-UseRads')[0]
-    except:
+        gameId = data.split(".lol.pvp.net:8080")[1].split('" "-UseRads')[0]
+    except Exception as e:
         return True
     print("   > played games: ", playedGames)
     print("   > current game: ", gameId)
