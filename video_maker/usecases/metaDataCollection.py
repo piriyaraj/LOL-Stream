@@ -64,9 +64,10 @@ def __create_team_red(driver) -> list[Player]:
     redPlayerRank = []
     team_red_rank = driver.find_elements(
         By.XPATH, "//*[@id='content-container']/div/table[2]/tbody/tr/td[5]")
-    for i in range(len(team_red_rank)):
+    for i in range(len(team_red_rank)):  
+        # player_rank = team_red_rank[i].find_element(By.TAG_NAME,"img").get_attribute("alt")      
         try:
-            player_rank = team_red_rank[i].find("//img").get_attribute("alt")
+            player_rank = team_red_rank[i].find_element(By.TAG_NAME,"img").get_attribute("alt")
         except:
             player_rank = "Iron"
         redPlayerRank.append(player_rank)
