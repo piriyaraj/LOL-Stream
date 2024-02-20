@@ -12,15 +12,19 @@ import pydirectinput
 from usecases.metaDataCollection import getMetaData
 from usecases.create_thumbnail import CreateThumbnail
 import logging
-logging.basicConfig(filename='../LoL stream.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='../LoL stream.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 # get the player name and get the live player name
 playedGames = []
 is_cookie_button_pressed = False
 
+
 def changePlayedGame():
     if playedGames:
         playedGames.pop()
+
+
 def is_game_already_played():
     file = os.listdir(os.path.abspath(r'.\media\gameplay'))[0]
     print("  -gamePlay: " + file)
@@ -58,7 +62,7 @@ def get_no_played_game(team, index, driver):
     rank = rand_text.text.split("(")[1].split()[0]
     print("  -Played: " + rank)
     logging.info(f"   > -Played:: {rank}")
-    
+
     return rank
 
 
@@ -80,7 +84,7 @@ def press_update_button(driver):
         print("  -Update button not found")
 
 
-def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, index, no_of_played_game):
+def scrape_lolpros_player(new_folder_path, playerLink, playrName, driver, team, index, no_of_played_game):
     global is_cookie_button_pressed
     playerTeam = ""
     playerIndex = ""
@@ -91,8 +95,8 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
         driver.get(player_url)
         while True:
             try:
-                is_gameplay_found = WebDriverWait(driver, 10).until(EC.presence_of_element_located(
-                    (By.XPATH, "//button[@class='spectate css-1wruk4q eh5kfb0' and @type='button']")))
+                is_gameplay_found = WebDriverWait(driver, 60).until(EC.presence_of_element_located(
+                    (By.XPATH, "//button[@class='spectate css-12i3qkr eggkc9d0' and @type='button']")))
                 # time.sleep(5)
                 if not is_cookie_button_pressed:
                     try:
@@ -181,10 +185,10 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
         if status:
             print("  -already_played")
             logging.info(f"  -already_played")
-            
+
             return "Not found", 0, driver, "None"
         logging.info(f"   >New game found")
-        
+
         try:
             button = driver.find_element(By.XPATH, "//button[@class='close']")
             button.click()
@@ -192,10 +196,10 @@ def scrape_lolpros_player(new_folder_path,playerLink, playrName, driver, team, i
         except Exception as e:
             print("Error(click download):", e)
         # press_update_button(driver)
-        data = getMetaData(driver,playerLink,new_folder_path)
+        data = getMetaData(driver, playerLink, new_folder_path)
         logging.info(f"   >Got MetaData")
         print(f"   > Got MetaData")
-        thumbCreation = CreateThumbnail(driver,data,new_folder_path)
+        thumbCreation = CreateThumbnail(driver, data, new_folder_path)
         thumbCreation.create_thumbnail()
         logging.info(f"   >Created thumbnail")
         return playerTeam, playerIndex, driver, updated_no_played_game
@@ -216,11 +220,11 @@ def removeGameplay():
         os.remove(os.path.join(os.path.abspath("media/gameplay"), i))
 
 
-def get_commands(playerLink, playrName,new_folder_path, driver=None, team=None, index=None, no_of_played_game=None):
+def get_commands(playerLink, playrName, new_folder_path, driver=None, team=None, index=None, no_of_played_game=None):
     if driver is None:
         driver = scrapper().driver
 
     playerTeam, playerIndex, driver, no_of_played_game = scrape_lolpros_player(new_folder_path,
-        playerLink, playrName, driver, team, index, no_of_played_game)
+                                                                               playerLink, playrName, driver, team, index, no_of_played_game)
 
     return playerTeam, int(playerIndex)+1, driver, no_of_played_game
