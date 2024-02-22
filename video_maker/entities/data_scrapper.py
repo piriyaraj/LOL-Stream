@@ -27,6 +27,7 @@ class DataScrapper:
                 gecko_driver_path = os.path.abspath("/assets/geckodriver.exe")
                 self.driver = webdriver.Firefox(options=self.__options)
                 self.driver.maximize_window()
+                # self.driver.set_window_size(1280, 805)
                 break  # Successfully initialized the driver
             except Exception as e:
                 print(f"Error initializing driver: {e}")

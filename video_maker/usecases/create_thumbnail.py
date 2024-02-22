@@ -201,6 +201,7 @@ class CreateThumbnail:
             img.save(self.__thumb_path, quality=70)
             img.save(self.__static_thumb_path, quality=70)
         print_progress(100, self.total, prefix='Creating Thumbnail:')
+        self.scrapper.maximize_window()
 
         return True
 
