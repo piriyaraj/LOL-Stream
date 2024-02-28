@@ -175,7 +175,7 @@ Linktree ► https://linktr.ee/spectatebaus
         error = None
         retry = 0
         while response is None:
-            print("=== Video uploding (wait until uploading finishe) ===")
+            print("=== Video uploading (wait until uploading finish) ===")
             try:
                 # print("Uploading file...")
                 status, response = insert_request.next_chunk()
