@@ -70,16 +70,16 @@ class UploadYoutube:
         
         # """
         self.__description = """
-            Make sure to hit the like button and subscribe to my channel!
+Make sure to hit the like button and subscribe to my channel!
 
-            ↓ MORE INFO ↓
+↓ MORE INFO ↓
 
-            Follow me:
-            Twitch ► https://www.twitch.tv/spectate_baus
-            Youtube ► https://www.youtube.com/channel/UC_yb6SvLnpDND_wRh9cEN3g
-            Linktree ► https://linktr.ee/spectatebaus
+Follow me:
+Twitch ► https://www.twitch.tv/spectate_baus
+Youtube ► https://www.youtube.com/channel/UC_yb6SvLnpDND_wRh9cEN3g
+Linktree ► https://linktr.ee/spectatebaus
 
-            #Thebausffs #Babus #Demon #Simon #Spectate #Spectator #Full #Game #Highlight #LOL #Leagueoflegends #League #of #Legends #RIOTGAMES
+#Thebausffs #Babus #Demon #Simon #Spectate #Spectator #Full #Game #Highlight #LOL #Leagueoflegends #League #of #Legends #RIOTGAMES
         """
         self.__category = "20"
         self.__keywords = [f"{match_data['mvp']['champion']}", "challenger",
